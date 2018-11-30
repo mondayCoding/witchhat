@@ -1,0 +1,355 @@
+@charset "UTF-8";
+@import 'shared';
+
+//*******************************************************************************************************************************************************
+// Plugin overwrites
+//******************************************************************************************************************************************************
+
+
+//****************************************************************************
+// Plugin (style overwrite) | React-Table
+//****************************************************************************
+
+.ReactTable {
+	border: 0.1rem solid transparentize($color: $gray-black, $amount: 0.5);
+	border-radius: $global-radius;
+	box-shadow: $global-shadow;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 0.75rem;
+
+	.rt-tbody {
+		border: 0.1rem solid transparentize($color: $gray-black, $amount: 0.5);
+		border-radius: $global-radius;
+
+		.rt-tr-group {
+			background-color: $gray-dark;
+			border: 0.1rem solid transparentize($color: $gray-black, $amount: 0.5);
+			border-bottom: 0.1rem solid $gray-black;
+			position: relative;
+			transition: background-color 0.2s ease-in-out;
+
+			.rt-td:not(:last-child) {
+				border-right: 0.1rem solid $gray-black;
+			}
+
+			&:hover,
+			&:nth-child(odd):hover {
+				background-color: desaturate(adjust-hue(mix($gray-black, $main, 20%), 40%), 30%);
+			}
+
+			&:nth-child(odd) {
+				background-color: $gray-dark;
+			}
+
+			&:first-child {
+				border-top-left-radius: $global-radius;
+				border-top-right-radius: $global-radius;
+			}
+
+			&:last-child {
+				border-bottom-left-radius: $global-radius;
+				border-bottom-right-radius: $global-radius;
+			}
+		}
+	}
+}
+
+//****************************************************************************
+// Plugin (style overwrite) | RC-Tooltip
+//****************************************************************************
+
+.rc-tooltip {
+	box-shadow: $global-radius;
+	color: $gray-black;
+	max-width: 14rem;
+	opacity: 1;
+}
+
+.rc-tooltip.rc-tooltip-animate-enter,
+.rc-tooltip.rc-tooltip-animate-leave {
+	display: block;
+}
+
+.rc-tooltip-animate-enter,
+.rc-tooltip-animate-appear {
+	animation-duration: 0.2s;
+	animation-fill-mode: both;
+	animation-play-state: paused;
+	animation-timing-function: cubic-bezier(0.18, 0.89, 0.32, 1.28);
+	opacity: 0;
+}
+
+.rc-tooltip-animate-leave {
+	animation-duration: 0.2s;
+	animation-fill-mode: both;
+	animation-play-state: paused;
+	animation-timing-function: cubic-bezier(0.6, -0.3, 0.74, 0.05);
+}
+
+.rc-tooltip-animate-enter.rc-tooltip-animate-enter-active,
+.rc-tooltip-animate-appear.rc-tooltip-animate-appear-active {
+	animation-name: tooltipFadeIn;
+	animation-play-state: running;
+}
+
+.rc-tooltip-animate-leave.rc-tooltip-animate-leave-active {
+	animation-name: tooltipFadeOut;
+	animation-play-state: running;
+}
+@keyframes tooltipFadeIn {
+	0% {
+		opacity: 0;
+		transform: scale(0, 0);
+		transform-origin: 50% 50%;
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1, 1);
+		transform-origin: 50% 50%;
+	}
+}
+@keyframes tooltipFadeOut {
+	0% {
+		opacity: 1;
+		transform: scale(1, 1);
+		transform-origin: 50% 50%;
+	}
+
+	100% {
+		opacity: 0;
+		transform: scale(0, 0);
+		transform-origin: 50% 50%;
+	}
+}
+
+//*************************************************************************************************
+// Plugin overwrite | React-Select
+//*************************************************************************************************
+
+.react-select {
+	color: black !important;
+	min-width: 25%;
+
+	.react-select__control {
+		&:hover {
+			border-color: $main;
+		}
+
+		.reactselect__value-container {
+		}
+
+		.reactselect__indicators {
+		}
+	}
+
+	.react-select__control--is-focused {
+		@include focusEffect();
+		border-color: $main;
+	}
+
+	.react-select__menu {
+		.react-select__menu-list {
+			.react-select__option:hover {
+				background: transparentize($color: $main, $amount: 0.7);
+			}
+
+			.react-select__option--is-focused {
+				background: transparentize($color: $main, $amount: 0.7);
+			}
+
+			.react-select__option--is-selected {
+				background: $main;
+			}
+		}
+	}
+}
+
+//*******************************************************************************************************************************************************
+// Layout Elements
+//******************************************************************************************************************************************************
+
+//****************************************************************************
+// Layout
+//****************************************************************************
+
+.body--layout {
+	color: $gray-light;
+	display: flex;
+	flex-direction: column;
+	height: auto;
+	min-height: 100vh;
+}
+
+.login {
+	@include flex-center();
+
+	background: radial-gradient($gray-dark, $gray-dark);
+	background-color: $gray-black;
+	color: $gray-light;
+	height: auto;
+	min-height: 100vh;
+
+	.login--window {
+
+		background-color: $gray-dark;
+		border: 0.35rem solid $main;
+		box-shadow: $global-shadow;
+		max-width: 25rem;
+		width: 100%;
+
+		.login--window--title {
+			display: flex;
+			justify-content: center;
+			margin-top: 1rem;
+		}
+
+		.login--window--content {
+			display: flex;
+			flex-direction: column;
+			padding: 2rem;
+
+			.input-text {
+				text-align: center;
+				width: 100%;
+			}
+
+			.loginBtn {
+				margin-top: 3rem;
+			}
+
+			.forgot-pass {
+				display: flex;
+				justify-content: center;
+				padding: 1.5rem 0;
+			}
+		}
+	}
+}
+
+.content-layout {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: row;
+}
+
+nav.navigation {
+	background-color: $gray-dark;
+	border-right: 0.05rem solid $gray-black;
+	flex: 0 0 15rem;
+	height: auto;
+}
+
+main.main {
+	background-color: $gray-dark;
+	flex: 1 1 auto;
+	height: auto;
+}
+
+footer.footer {
+	background-color: $gray-dark;
+	border-top: 0.05rem solid $gray-black;
+	padding: 0.4rem;
+	text-align: center;
+}
+
+//****************************************************************************
+// Navigation
+//****************************************************************************
+
+nav.navigation {
+	@include respond-below(lg) {
+		flex: 0 0 5rem;
+	}
+
+	@include respond-below(sm) {
+		flex: 0 0 2.5rem;
+	}
+	//navigation wrapper
+	.navi-list {
+		display: flex;
+		flex-direction: column;
+		list-style: none;
+		position: sticky;
+		top: 0;
+		width: 100%;
+	}
+
+	//navi group title
+	.navi-heading {
+		color: $gray-black !important;
+	}
+
+	//single nav item (li)
+	.navi-item {
+		margin: 0;
+
+		> a {
+			align-items: center;
+			border-bottom: 0.15rem solid transparent;
+			border-top: 0.15rem solid transparent;
+			color: $gray-light;
+			display: flex;
+			font-size: 1rem;
+			font-weight: 400;
+			justify-content: space-between;
+			padding: 0.6rem;
+			text-align: left;
+			white-space: nowrap;
+
+			&:focus {
+				@include focusEffect;
+			}
+
+			&:hover {
+				border-bottom-color: $main;
+				border-top-color: $main;
+				color: $main;
+			}
+
+			&.active {
+				background-color: $main;
+				color: $white;
+
+				&:hover {
+					color: $white;
+				}
+			}
+
+			.fa,
+			.fas,
+			.far {
+				flex: 0 0 4rem;
+				font-size: 1.2rem;
+				text-align: center;
+			}
+
+			.pagename {
+				flex: 1 1 auto;
+			}
+		}
+	}
+
+	.navi-item > a {
+		@include respond-below(lg) {
+			border: 0.15rem solid transparent;
+			padding: 1rem 0.7rem;
+			text-align: center;
+
+			&:hover {
+				border: 0.15rem solid $main;
+			}
+
+			.fa,
+			.fas {
+				flex: 1 1 auto;
+				font-size: 1.5rem;
+			}
+
+			.pagename {
+				display: none;
+			}
+		}
+	}
+}

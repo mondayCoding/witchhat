@@ -1,0 +1,87 @@
+
+//Query breakpoints
+$breakpoints: (
+	xs: 576px,
+	sm: 768px,
+	md: 994px,
+	lg: 1140px,
+	xl: 1600px,
+	xxl: 1900px
+);
+
+// ****************************************************************************
+// Media Query helpers
+// ****************************************************************************
+
+// Respond above breakpoint
+@mixin respond-above($breakpoint) {
+	@if map-has-key($breakpoints, $breakpoint) {
+		$breakpoint-value: map-get($breakpoints, $breakpoint);
+		@media screen and (min-width: $breakpoint-value) {
+			@content;
+		}
+	} @else {
+		@warn 'Invalid breakpoint: #{$breakpoint}.';
+	}
+}
+// Respond below breakpoint
+@mixin respond-below($breakpoint) {
+	@if map-has-key($breakpoints, $breakpoint) {
+		$breakpoint-value: map-get($breakpoints, $breakpoint);
+		@media screen and (max-width: ($breakpoint-value - 1)) {
+			@content;
+		}
+	} @else {
+		@warn 'Invalid breakpoint: #{$breakpoint}.';
+	}
+}
+// Respond between breakpoints
+@mixin respond-between($lower, $upper) {
+	@if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper) {
+		$lower-breakpoint: map-get($breakpoints, $lower);
+		$upper-breakpoint: map-get($breakpoints, $upper);
+		@media screen and (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
+			@content;
+		}
+	} @else {
+		@if (map-has-key($breakpoints, $lower) == false) {
+			@warn 'Your lower breakpoint was invalid: #{$lower}.';
+		}
+		@if (map-has-key($breakpoints, $upper) == false) {
+			@warn 'Your upper breakpoint was invalid: #{$upper}.';
+		}
+	}
+}
+
+
+// ****************************************************************************
+// causal Mixins
+// ****************************************************************************
+
+
+@mixin size($size) {
+	height: $size;
+	width: $size;
+}
+
+@mixin flex-row {
+	display: flex;
+	flex-direction: row;
+}
+
+@mixin flex-center {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+@mixin focusEffect {
+	box-shadow: 0 0 0.35rem $black;
+	outline: 0.1rem solid $main;
+
+	&:hover {
+		box-shadow: none;
+		outline: none;
+	}
+}
