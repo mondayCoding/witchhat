@@ -34,6 +34,9 @@
 }
 
 .layout {
+   border-top: $gray-black solid .1rem;
+   margin-top: 1rem;
+   padding-top: 1rem;
    display: flex;
    flex-direction: row;
    width: 100%;
