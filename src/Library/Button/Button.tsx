@@ -1,41 +1,30 @@
 import * as React from 'react';
-import classNames from 'classnames';
-import './Button.scss';
+import { ThemedButton, styleProps } from './ButtonStyle';
 
-export interface IProps {
-	className?: string;
-	id?: string;
-	disabled?: boolean;
+export interface IProps extends React.ButtonHTMLAttributes<{}> {
 	autoFocus?: boolean;
-	buttonText?: string;
-	buttonIcon?: React.ReactNode;
-	type?: string;
-	style?: any;
-	onClick?(params: any): any;
+	theme?: any;
+	text?: React.ReactNode;
+	iconBeforeText?: React.ReactNode;
+	iconAfterText?: React.ReactNode;
+	onClick?(params?: any): any;
 }
 
-export const Button: React.SFC<IProps> = ({
-	className,
-	buttonText,
-	buttonIcon,
-	type,
-	disabled,
-	style,
+export const Button: React.SFC<IProps & Partial<styleProps>> = ({
+	text,
+	iconBeforeText,
+	iconAfterText,
+	theme,
+	children,
 	...rest
 }) => {
-	buttonText = buttonText || 'button';
-	type = type || 'button';
-
-	const classString = classNames({
-		themebutton: true,
-		[className]: className,
-		disabled
-	});
+	text = text || 'button';
 
 	return (
-		<button type={type} style={style} className={classString} {...rest}>
-			{buttonIcon && <span>{buttonIcon}</span>}
-			{buttonText && <span>{buttonText}</span>}
-		</button>
+		<ThemedButton type={'button'} {...rest}>
+			{iconBeforeText && <span>{iconBeforeText}</span>}
+			{children || (text && <span>{text}</span>)}
+			{iconAfterText && <span>{iconAfterText}</span>}
+		</ThemedButton>
 	);
 };

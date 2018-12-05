@@ -1,124 +1,125 @@
 import React, { Component, useState, useEffect } from 'react';
-import logo from '../logo.svg';
-import './Site.scss';
 import { Switch, Route, Redirect } from 'react-router';
 import * as routes from '../Constants/Routes';
 import navicons from '../UtilsUI/Icons';
-import { NavLink, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { LOGPOSITION } from './LogMousePos/LogMousePos';
+import { COUNTER } from './Counter/Counter';
+import { SignUp } from './SignUp/SignUp';
+import { Account } from './Account/Account';
+import { Landing } from './Landing/Landing';
+import { ForgotPassword } from './ForgotPassword/ForgotPassword';
+import { Home } from './Home/Home';
+import { ThemedLayout, ThemedLink } from './SiteStyles';
+import { SignIn } from './SignIn/SignIn';
+import { ThemeProvider } from 'styled-components';
+import { themed } from '../Library/theme';
+import { auth, firebase } from '../Firebase/index';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const App = () => {
+const App: React.SFC = () => {
+	const [authUser, setAuthUser] = useState(null as firebase.User);
+	let subscription;
+
+	useEffect(() => {
+		console.log('Add Listener');
+
+		subscription = firebase.onAuthStateChanged((auth) => {
+			console.log('current auth');
+			console.log(authUser);
+			console.log('new auth');
+			console.log(auth);
+
+			auth ? setAuthUser(auth) : setAuthUser(null);
+		});
+		return () => {
+			console.log('need to remove listener here');
+		};
+	}, []);
+
 	return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-				<Main />
-			</header>
-		</div>
-	);
-};
-
-const COUNTER = () => {
-	const [count, setCount] = useState(0);
-
-	return (
-		<React.Fragment>
-			<h2>{count}</h2>
-			<button onClick={() => setCount(count + 1)}>increase</button>
-			<button onClick={() => setCount(count - 1)}>decrease</button>
-		</React.Fragment>
-	);
-};
-
-const LOGPOSITION = () => {
-	useEffect(logMousePosition, []);
-
-	return <h4>Logging mouse position to console</h4>;
-};
-
-const logMousePosition = () => {
-	console.log('listener created');
-	window.addEventListener('mousemove', logmousepos);
-
-	return () => {
-		console.log('listener removed');
-		window.removeEventListener('mousemove', logmousepos);
-	};
-};
-
-const logmousepos = (e: any) => console.log({ x: e.clientX, y: e.clientY });
-
-const HOMEROUTE = () => <h2>HOME</h2>;
-const ANOTHERROUTE = () => <h2>ANOTHER</h2>;
-const THIRDROUTE = () => <h2>THIRD</h2>;
-
-const Main = () => (
-	<BrowserRouter>
-		<div className="layout">
+		<ThemedLayout>
 			<nav className="nav">
-				{/* <NavLink to={routes.SIGN_IN} {...linkProps}>
-					{navicons.dashboard} Sign In
-				</NavLink>
-
-				<NavLink to={routes.SIGN_UP} {...linkProps}>
-					{navicons.dashboard} Sign Up
-				</NavLink>
-
-				<NavLink to={routes.LANDING} {...linkProps}>
-					{navicons.createchar} Landing
-				</NavLink>
-
-				<NavLink to={routes.HOME} {...linkProps}>
-					{navicons.soon} Home™
-				</NavLink>
-
-				<NavLink to={routes.ACCOUNT} {...linkProps}>
-					{navicons.missions} Account
-				</NavLink>
-
-				<NavLink to={routes.PASSWORD_FORGET} {...linkProps}>
-					{navicons.missions} Forgot password
-				</NavLink> */}
-
-				<NavLink to={'/counter'} {...linkProps}>
-					{navicons.missions} Counter
-				</NavLink>
-
-				<NavLink to={'/mouse_logger'} {...linkProps}>
-					{navicons.missions} Mouse Logger
-				</NavLink>
+				{authUser ? <AuthNavigation /> : <NonAuthNavigation />}
 			</nav>
 			<main className="main">
 				<Switch>
-					{/* <Route exact={true} path={routes.SIGN_IN} component={HOMEROUTE} />
-					<Route exact={true} path={routes.SIGN_UP} component={ANOTHERROUTE} />
-					<Route exact={true} path={routes.LANDING} component={THIRDROUTE} />
-					<Route exact={true} path={routes.HOME} component={HOMEROUTE} />
-					<Route exact={true} path={routes.ACCOUNT} component={ANOTHERROUTE} />
-					<Route exact={true} path={routes.PASSWORD_FORGET} component={THIRDROUTE} /> */}
+					<Route exact={true} path={routes.SIGN_IN} component={SignIn} />
+					<Route exact={true} path={routes.SIGN_UP} component={SignUp} />
+					<Route exact={true} path={routes.LANDING} component={Landing} />
+					<Route exact={true} path={routes.HOME} component={Home} />
+					<Route exact={true} path={routes.ACCOUNT} component={Account} />
+					<Route
+						exact={true}
+						path={routes.PASSWORD_FORGET}
+						component={ForgotPassword}
+					/>
 					<Route exact={true} path={'/counter'} component={COUNTER} />
 					<Route exact={true} path={'/mouse_logger'} component={LOGPOSITION} />
 					<Redirect to="/" />
 				</Switch>
 			</main>
-		</div>
-	</BrowserRouter>
+		</ThemedLayout>
+	);
+};
+
+const AuthNavigation = () => (
+	<>
+		<ThemedLink to={routes.LANDING} {...linkProps}>
+			{navicons.createchar} Landing
+		</ThemedLink>
+
+		<ThemedLink to={routes.HOME} {...linkProps}>
+			{navicons.soon} Home™
+		</ThemedLink>
+
+		<ThemedLink to={routes.ACCOUNT} {...linkProps}>
+			{navicons.missions} Account
+		</ThemedLink>
+
+		<ThemedLink to={'undefined'} onClick={auth.signOut}>
+			{navicons.poweroff} Sign Out
+		</ThemedLink>
+	</>
+);
+
+const NonAuthNavigation = () => (
+	<>
+		<ThemedLink to={routes.SIGN_IN} {...linkProps}>
+			{navicons.dashboard} Sign In
+		</ThemedLink>
+
+		<ThemedLink to={routes.SIGN_UP} {...linkProps}>
+			{navicons.dashboard} Sign Up
+		</ThemedLink>
+
+		<ThemedLink to={routes.PASSWORD_FORGET} {...linkProps}>
+			{navicons.missions} Forgot password
+		</ThemedLink>
+
+		<ThemedLink to={'/counter'} {...linkProps}>
+			{navicons.missions} Counter
+		</ThemedLink>
+
+		<ThemedLink to={'/mouse_logger'} {...linkProps}>
+			{navicons.missions} Mouse Logger
+		</ThemedLink>
+	</>
+);
+
+export const ThemedApp = () => (
+	<React.Fragment>
+		<BrowserRouter>
+			<ThemeProvider theme={themed}>
+				<App />
+			</ThemeProvider>
+		</BrowserRouter>
+		<ToastContainer draggablePercent={40} hideProgressBar={true} />
+	</React.Fragment>
 );
 
 const linkProps = {
 	exact: true,
-	activeClassName: 'active',
-	className: 'nav--item'
+	activeClassName: 'active'
 };
-
-export default App;

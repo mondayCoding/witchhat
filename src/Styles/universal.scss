@@ -19,8 +19,8 @@ html {
 
 body {
 	box-sizing: border-box;
-	color: $grayLight;
-	font-family: $bodyfont;
+	color: $gray-light;
+	font-family: $body-font;
 	font-size: 1rem;
 	height: 100vh;
 	line-height: 1.6;
@@ -31,7 +31,7 @@ h2,
 h3,
 h4,
 h5 {
-	font-family: $headingfont !important;
+	font-family: $heading-font !important;
 	margin-bottom: 0.5rem;
 }
 
@@ -48,20 +48,20 @@ h3 {
 	font-size: 1.25rem;
 }
 
-a,
-a:link {
-	color: $link;
-	cursor: pointer;
-	font-size: 0.9rem;
-	text-decoration: none;
-	transition: color 0.2s;
+// a,
+// a:link {
+// 	color: $link;
+// 	cursor: pointer;
+// 	font-size: 0.9rem;
+// 	text-decoration: none;
+// 	transition: color 0.2s;
 
-	&:hover,
-	&:active {
-		color: darken($color: $link, $amount: 35%);
-		text-decoration: none;
-	}
-}
+// 	&:hover,
+// 	&:active {
+// 		color: darken($color: $link, $amount: 35%);
+// 		text-decoration: none;
+// 	}
+// }
 
 ul > li {
 	margin-left: 1rem;
@@ -80,16 +80,6 @@ mark {
 img {
 	display: block;
 	width: 100%;
-}
-
-kbd {
-	background-color: $grayDarkAlt;
-	border-radius: $globalRadius;
-	box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.25);
-	color: $white;
-	font-size: 0.9rem;
-	margin: 0 0 0 0.5rem;
-	padding: 2px 4px;
 }
 
 input {
