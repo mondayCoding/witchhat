@@ -1,5 +1,5 @@
-import { themed } from '../Library/theme';
-import styled from 'styled-components';
+import { defaultTheme } from '../Library/theme';
+import styled from '../Library/theme';
 import { NavLink } from 'react-router-dom';
 
 export const ThemedLayout = styled.div`
@@ -7,22 +7,28 @@ export const ThemedLayout = styled.div`
 	flex-direction: row;
 	width: 100%;
 	min-height: 20rem;
-	background-color: ${themed.gray_heavy};
+	background-color: ${(props) => props.theme.gray_heavy};
 	min-height: 100vh;
-	color: ${themed.gray_light};
-	text-align: center;
+	color: ${(props) => props.theme.gray_light};
+	text-align: left;
+	font-family: ${({ theme }) => theme.font_body};
 
 	> nav.nav {
 		flex: 0 0 20%;
 		display: flex;
 		flex-direction: column;
-		background-color: ${themed.gray_black};
+		background-color: ${({ theme }) => theme.gray_black};
+
+		> .link--wrapper {
+			position: sticky;
+			top: 1rem;
+		}
 	}
 
 	> main.main {
 		flex: 0 0 80%;
 		padding: 1rem;
-		box-shadow: ${themed.global_shadow_inset};
+		box-shadow: ${(props) => props.theme.global_shadow_inset};
 	}
 `;
 
@@ -37,13 +43,13 @@ export const ThemedLink = styled(NavLink)`
 	transition: background-color 0.2s ease-in-out;
 
 	&:hover {
-		background-color: ${(props) => props.theme.main_color};
-		color: $white;
+		background-color: ${(props) => props.theme.primary};
+		color: #fff;
 	}
 
 	&.active {
-		color: ${themed.white};
-		background-color: ${themed.main_color};
+		color: #fff;
+		background-color: ${(props) => props.theme.primary};
 	}
 
 	> i {

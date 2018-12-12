@@ -12,8 +12,9 @@ import { ForgotPassword } from './ForgotPassword/ForgotPassword';
 import { Home } from './Home/Home';
 import { ThemedLayout, ThemedLink } from './SiteStyles';
 import { SignIn } from './SignIn/SignIn';
+import { EconCalculator } from './EconomyCalc/EconCalculator';
 import { ThemeProvider } from 'styled-components';
-import { themed } from '../Library/theme';
+import { defaultTheme, ThemeManager } from '../Library/theme';
 import { auth, firebase } from '../Firebase/index';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -55,6 +56,7 @@ const App: React.SFC = () => {
 						path={routes.PASSWORD_FORGET}
 						component={ForgotPassword}
 					/>
+					<Route exact={true} path={'/econ'} component={EconCalculator} />
 					<Route exact={true} path={'/counter'} component={COUNTER} />
 					<Route exact={true} path={'/mouse_logger'} component={LOGPOSITION} />
 					<Redirect to="/" />
@@ -65,7 +67,7 @@ const App: React.SFC = () => {
 };
 
 const AuthNavigation = () => (
-	<>
+	<div className="link--wrapper">
 		<ThemedLink to={routes.LANDING} {...linkProps}>
 			{navicons.createchar} Landing
 		</ThemedLink>
@@ -81,11 +83,15 @@ const AuthNavigation = () => (
 		<ThemedLink to={'undefined'} onClick={auth.signOut}>
 			{navicons.poweroff} Sign Out
 		</ThemedLink>
-	</>
+	</div>
 );
 
 const NonAuthNavigation = () => (
-	<>
+	<div className="link--wrapper">
+		<ThemedLink to={routes.ACCOUNT} {...linkProps}>
+			{navicons.missions} Account
+		</ThemedLink>
+
 		<ThemedLink to={routes.SIGN_IN} {...linkProps}>
 			{navicons.dashboard} Sign In
 		</ThemedLink>
@@ -98,6 +104,10 @@ const NonAuthNavigation = () => (
 			{navicons.missions} Forgot password
 		</ThemedLink>
 
+		<ThemedLink to={'/econ'} {...linkProps}>
+			{navicons.missions} EconCalculator
+		</ThemedLink>
+
 		<ThemedLink to={'/counter'} {...linkProps}>
 			{navicons.missions} Counter
 		</ThemedLink>
@@ -105,19 +115,19 @@ const NonAuthNavigation = () => (
 		<ThemedLink to={'/mouse_logger'} {...linkProps}>
 			{navicons.missions} Mouse Logger
 		</ThemedLink>
-	</>
+	</div>
 );
 
-export const ThemedApp = () => (
-	<React.Fragment>
-		<BrowserRouter>
-			<ThemeProvider theme={themed}>
+export const ThemedApp = () => {
+	return (
+		<ThemeManager>
+			<BrowserRouter>
 				<App />
-			</ThemeProvider>
-		</BrowserRouter>
-		<ToastContainer draggablePercent={40} hideProgressBar={true} />
-	</React.Fragment>
-);
+			</BrowserRouter>
+			<ToastContainer draggablePercent={40} hideProgressBar={true} />
+		</ThemeManager>
+	);
+};
 
 const linkProps = {
 	exact: true,

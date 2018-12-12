@@ -13,8 +13,10 @@ export const Icons = {
 	apimocking: <i className="fa fa-bug" />,
 	coinflipper: <i className="fas fa-dice" />,
 	complex: <i className="fa fa-barcode" />,
-	plus: <i className="far fa-plus-square" />,
-	minus: <i className="far fa-minus-square" />,
+	plus: <i className="far fa-plus" />,
+	minus: <i className="far fa-minus" />,
+	plus_alt: <i className="far fa-plus-square" />,
+	minus_alt: <i className="far fa-minus-square" />,
 	download: <i className="fas fa-download" />,
 	calendarPlus: <i className="fas fa-calendar-plus" />,
 	calendarMinus: <i className="fas fa-calendar-minus" />,
@@ -35,10 +37,14 @@ export const Icons = {
 	save: <i className="fas fa-save" />,
 	close: <i className="fas fa-times" />,
 	arrowLeft: <i className="fas fa-arrow-left" />,
+	arrowRight: <i className="fas fa-arrow-right" />,
 	users: <i className="fas fa-users" />,
 	user: <i className="fas fa-user" />,
 	check: <i className="fas fa-check" />,
-	calendar: <i className="fas fa-calendar-alt" />
+	calendar: <i className="fas fa-calendar-alt" />,
+	undo: <i className="fas fa-undo" />,
+	redo: <i className="fas fa-redo" />,
+	reset: <i className="fas fa-fa-undo" />
 };
 
 export default Icons;

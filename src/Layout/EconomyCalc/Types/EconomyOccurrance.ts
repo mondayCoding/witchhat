@@ -17,21 +17,21 @@ class Annual implements OccurranceAbstract {
 	readonly annualRepeats = 1;
 	readonly label = 'Annual';
 	readonly description = 'Occurs once each year';
-	readonly class_basic = 'generic--expense';
+	readonly class_basic = 'tag-annual';
 }
 
 class Monthly implements OccurranceAbstract {
 	readonly annualRepeats = 12;
 	readonly label = 'Monthly';
 	readonly description = 'Occurs each month';
-	readonly class_basic = 'generic--expense';
+	readonly class_basic = 'tag-monthly';
 }
 
 class Quartely implements OccurranceAbstract {
 	readonly annualRepeats = 4;
 	readonly label = 'Quarterly';
 	readonly description = 'Occurs in each quarter';
-	readonly class_basic = 'generic--expense';
+	readonly class_basic = 'tag-quarterly';
 }
 
 export const Occurance = {

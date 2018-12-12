@@ -1,5 +1,4 @@
-import styled, { css } from 'styled-components';
-import { themed, disableStyle } from '../theme';
+import styled, { css, defaultTheme } from '../theme';
 
 export interface styleProps {
 	isRounded: boolean;
@@ -11,7 +10,7 @@ export interface styleProps {
 type props = Partial<styleProps>;
 
 export const ThemedButton = styled.button`
-	background-color: ${themed.main_color};
+	background-color: ${({ theme }) => theme.primary};
 	border: 0.15rem solid transparent;
 	color: #fff;
 	font-size: 1rem;
@@ -24,14 +23,16 @@ export const ThemedButton = styled.button`
 	transition: background-color 0.2s;
 	width: auto;
 	cursor: pointer;
-	border-radius: ${(props: props) =>
-		props.isSquare ? '0' : themed.global_border_radius};
+	border-radius: ${(props) =>
+		props.isSquare ? '0' : props.theme.global_border_radius};
+
 	${(props: props) =>
 		props.isWide &&
 		css`
 			width: 100%;
 			display: block;
 		`}
+
 	${(props: props) =>
 		props.isUpperCase &&
 		css`

@@ -1,15 +1,17 @@
 import * as React from 'react';
-import './CheckboxSlider.scss';
+import { ThemedWrapper } from './CheckboxSliderStyles';
 
-interface IProps extends React.HtmlHTMLAttributes<HTMLInputElement> {
+interface IProps extends React.HTMLAttributes<HTMLInputElement> {
 	label: string;
+	id: string;
+	disabled?: boolean;
 }
 
 export const SliderCheckbox: React.SFC<IProps> = ({ id, label, ...rest }) => {
 	return (
-		<div className="themeslider">
+		<ThemedWrapper>
 			<input type="checkbox" id={id} {...rest} />
 			<label htmlFor={id}>{label}</label>
-		</div>
+		</ThemedWrapper>
 	);
 };

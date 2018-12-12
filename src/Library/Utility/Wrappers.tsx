@@ -1,6 +1,5 @@
 import * as React from 'react';
-import styled, { StyledFunction } from 'styled-components';
-import { themed } from '../theme';
+import styled, { defaultTheme } from '../theme';
 
 interface IProps {
 	width?: string;

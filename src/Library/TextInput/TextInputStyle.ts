@@ -1,9 +1,8 @@
-import styled from 'styled-components';
-import { themed } from '../theme';
+import styled, { defaultTheme } from '../theme';
 
 export const ThemedInput = styled.input`
 	background: none;
-	color: ${themed.gray_light};
+	color: ${({ theme }) => theme.gray_light};
 	border: none;
 	display: flex;
 	flex: 1 1 auto;
@@ -21,18 +20,24 @@ export const ThemedInput = styled.input`
 interface nom {
 	error: string;
 }
+
 type nam = Partial<nom>;
 
-export const ThemedWrapper = styled.div`
+export const ThemedWrapper = styled.div<nom>`
 	border: 0.1rem solid;
-	border-color: ${(props: nam) =>
-		props.error ? themed.error_color : themed.main_color};
-	border-radius: ${themed.global_border_radius};
-	box-shadow: ${themed.global_shadow};
+	border-color: ${({ error, theme }) =>
+		error ? theme.error_color : theme.primary};
+	border-radius: ${defaultTheme.global_border_radius};
+	box-shadow: ${defaultTheme.global_shadow};
 	display: flex;
 	flex-direction: column;
 	max-width: 100%;
 	position: relative;
+	transition: border-color 2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+	&:hover {
+		box-shadow: 0 0 0.4rem ${({ theme }) => theme.primary};
+	}
 
 	& + & {
 		margin-top: 0.5rem;
