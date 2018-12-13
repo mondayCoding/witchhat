@@ -8,6 +8,7 @@ import * as routes from '../../Constants/Routes';
 import { RouteComponentProps } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
 import { auth } from '../../Firebase/index';
+import { Heading } from '../../Library/Text/Heading';
 
 export const SignIn: React.SFC<RouteComponentProps> = ({ history }) => {
 	const handleSubmit = (values: any, resetForm: () => void) => {
@@ -41,10 +42,20 @@ const Form = ({
 	values,
 	dirty
 }: FormikProps<typeof initialValues>) => (
-	<Limiter>
-		<h2>Sign In</h2>
-		<Field name="email" type="email" component={FormikTextInput} />
-		<Field name="password" type="password" component={FormikTextInput} />
+	<Limiter centered={true} >
+		<Heading text="Sign in" hasUnderline={true} ingress="Beware he who enters, there is no god inside" />
+		<Field
+			name="email"
+			type="email"
+			component={FormikTextInput}
+			placeholder="Email"
+		/>
+		<Field
+			name="password"
+			type="password"
+			component={FormikTextInput}
+			placeholder="Password"
+		/>
 		<Button text="Submit" disabled={!dirty} onClick={handleSubmit} />
 		<div>{values.email}</div>
 		<div>{values.password}</div>

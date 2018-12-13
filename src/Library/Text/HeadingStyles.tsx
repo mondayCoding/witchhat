@@ -33,6 +33,13 @@ const shared = css`
 		`};
 `;
 
+export const Ingress = styled.span`
+	display: block;
+	margin-bottom: 1rem;
+	margin-top: -0.25rem;
+	font-style: italic;
+`;
+
 export const H1 = styled.h1`
 	font-size: 2.1rem;
 	${shared}

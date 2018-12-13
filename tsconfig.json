@@ -13,12 +13,7 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
-		"jsx": "preserve",
-		"plugins": [
-			{
-				"name": "typescript-styled-plugin"
-			}
-		]
+		"jsx": "preserve"
 	},
 	"include": ["src"]
 }

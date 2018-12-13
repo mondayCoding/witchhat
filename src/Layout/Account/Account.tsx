@@ -45,7 +45,7 @@ export const Account: React.SFC = () => {
 				onSubmit={onSubmit}
 				validationSchema={validationSchema}
 			/>
-			<Heading text="non interactice" hasUnderline={true} />
+			{/* <Heading text="non interactice" hasUnderline={true} />
 			<ChromePicker
 				color={themeColor3}
 				disableAlpha={true}
@@ -55,7 +55,7 @@ export const Account: React.SFC = () => {
 			<Button onClick={setGlobalTheme} text="Set Global Color" />
 			<SliderCheckbox label="label" id={'tesxt_cb'} />
 			<SliderCheckbox disabled={true} label="label" id={'tesxt_cb2'} />
-			{themeColor3 && <h2 style={{ color: themeColor3 }}>{themeColor3}</h2>}
+			{themeColor3 && <h2 style={{ color: themeColor3 }}>{themeColor3}</h2>} */}
 		</div>
 	);
 };
@@ -83,22 +83,22 @@ const ColorSampleWrapper = styled.div`
 
 	.sampler {
 		flex: 0.5 0.5 20rem;
-      border-radius: ${({ theme }) => theme.global_border_radius};
-      align-items: center;
-      justify-content: center;      
-      overflow: hidden;
-      height: 2rem;
+		border-radius: ${({ theme }) => theme.global_border_radius};
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+		height: 2rem;
 		max-width: 20rem;
-      display: flex;
+		display: flex;
 
-      .sample {
-         flex; 1 1 auto;
-         width: 100%;
-         background-color: black;
-         color: ${(props) => readableColor(props.color)};
-         text-align: center;
-         font-weight: 700;
-      }
+		.sample {
+			flex: 1 1 auto;
+			width: 100%;
+			background-color: black;
+			color: ${(props) => readableColor(props.color)};
+			text-align: center;
+			font-weight: 700;
+		}
 
 		& + .sampler {
 			margin-left: 1rem;
@@ -117,6 +117,39 @@ const Form = ({
 }: FormikProps<typeof initialValues>) => {
 	return (
 		<div>
+			<Heading text="Choose primary UI color" type="h4" />
+			<PickerWrapper>
+				<ChromePicker
+					color={values.primary}
+					disableAlpha={true}
+					onChangeComplete={(value) => {
+						setFieldValue('primary', value.hex);
+						setFieldTouched('primary');
+					}}
+				/>
+				<ChromePicker
+					color={values.secondary}
+					disableAlpha={true}
+					onChangeComplete={(value) => {
+						setFieldValue('secondary', value.hex);
+						setFieldTouched('secondary');
+					}}
+				/>
+			</PickerWrapper>
+			<ColorSampleWrapper color={values.primary}>
+				<div className="sampler">
+					<div className="sample" style={{ backgroundColor: values.primary }}>
+						<b>Primary</b>
+					</div>
+				</div>
+				<div className="sampler">
+					<div className="sample" style={{ backgroundColor: values.secondary }}>
+						<b>Secondary</b>
+					</div>
+				</div>
+			</ColorSampleWrapper>
+
+			<Heading text="Choose secondary UI color" type="h4" />
 			<PickerWrapper>
 				<ChromePicker
 					color={values.primary}

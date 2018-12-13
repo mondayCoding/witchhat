@@ -44,7 +44,7 @@ const Form = ({
 	values,
 	dirty
 }: FormikProps<typeof initialValues>) => (
-	<Limiter>
+	<Limiter centered={true}>
 		<h2>Sign Up</h2>
 		<Field
 			name="email"

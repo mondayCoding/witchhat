@@ -4,6 +4,7 @@ import * as HeadingTag from './HeadingStyles';
 interface IProps extends HeadingTag.Props {
 	text: string;
 	type?: string;
+	ingress?: string;
 	iconBeforeText?: React.ReactNode;
 	iconAfterText?: React.ReactNode;
 }
@@ -13,6 +14,7 @@ export const Heading: React.SFC<IProps> = ({
 	iconBeforeText,
 	text,
 	type,
+	ingress,
 	...rest
 }) => {
 	const HeadingContent = () => (
@@ -26,39 +28,57 @@ export const Heading: React.SFC<IProps> = ({
 	switch (type) {
 		case 'h1':
 			return (
-				<HeadingTag.H1 {...rest}>
-					<HeadingContent />
-				</HeadingTag.H1>
+				<>
+					<HeadingTag.H1 {...rest}>
+						<HeadingContent />
+					</HeadingTag.H1>
+					{ingress && <HeadingTag.Ingress>{ingress}</HeadingTag.Ingress>}
+				</>
 			);
 		case 'h2':
 			return (
-				<HeadingTag.H2 {...rest}>
-					<HeadingContent />
-				</HeadingTag.H2>
+				<div>
+					<HeadingTag.H2 {...rest}>
+						<HeadingContent />
+					</HeadingTag.H2>
+					{ingress && <HeadingTag.Ingress>{ingress}</HeadingTag.Ingress>}
+				</div>
 			);
 		case 'h3':
 			return (
-				<HeadingTag.H3 {...rest}>
-					<HeadingContent />
-				</HeadingTag.H3>
+				<div>
+					<HeadingTag.H3 {...rest}>
+						<HeadingContent />
+					</HeadingTag.H3>
+					{ingress && <HeadingTag.Ingress>{ingress}</HeadingTag.Ingress>}
+				</div>
 			);
 		case 'h4':
 			return (
-				<HeadingTag.H4 {...rest}>
-					<HeadingContent />
-				</HeadingTag.H4>
+				<div>
+					<HeadingTag.H4 {...rest}>
+						<HeadingContent />
+					</HeadingTag.H4>
+					{ingress && <HeadingTag.Ingress>{ingress}</HeadingTag.Ingress>}
+				</div>
 			);
 		case 'h5':
 			return (
-				<HeadingTag.H5 {...rest}>
-					<HeadingContent />
-				</HeadingTag.H5>
+				<div>
+					<HeadingTag.H5 {...rest}>
+						<HeadingContent />
+					</HeadingTag.H5>
+					{ingress && <HeadingTag.Ingress>{ingress}</HeadingTag.Ingress>}
+				</div>
 			);
 		default:
 			return (
-				<HeadingTag.H2 {...rest}>
-					<HeadingContent />
-				</HeadingTag.H2>
+				<div>
+					<HeadingTag.H2 {...rest}>
+						<HeadingContent />
+					</HeadingTag.H2>
+					{ingress && <HeadingTag.Ingress>{ingress}</HeadingTag.Ingress>}
+				</div>
 			);
 	}
 };
