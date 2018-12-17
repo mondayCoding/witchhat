@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 import * as routes from '../Constants/Routes';
 import navicons from '../UtilsUI/Icons';
@@ -15,34 +15,18 @@ import { GlobalStyle } from './GlobalStyles';
 import { SignIn } from './SignIn/SignIn';
 import { EconCalculator } from './EconomyCalc/EconCalculator';
 import { ThemeManager } from '../Library/theme';
-import { auth, firebase, database } from '../Firebase/index';
+import { auth } from '../Firebase/index';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAuthState } from '../Hooks/useAuthState';
 
 const App: React.SFC = () => {
-	const [authUser, setAuthUser] = useState(null as firebase.User);
-	let subscription;
-
-	useEffect(() => {
-		console.log('Add Listener');
-
-		subscription = firebase.onAuthStateChanged((auth) => {
-			console.log('current auth');
-			console.log(authUser);
-			console.log('new auth');
-			console.log(auth);
-
-			auth ? setAuthUser(auth) : setAuthUser(null);
-		});
-		return () => {
-			console.log('need to remove listener here');
-		};
-	}, []);
+	const { userAuth } = useAuthState();
 
 	return (
 		<ThemedLayout>
 			<nav className="nav">
-				{authUser ? <AuthNavigation /> : <NonAuthNavigation />}
+				{userAuth ? <AuthNavigation /> : <NonAuthNavigation />}
 			</nav>
 			<main className="main">
 				<Switch>

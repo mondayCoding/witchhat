@@ -49,14 +49,11 @@ export const GlobalStyle = createGlobalStyle`
       outline: none;
       width: 100%;
    }
+   
 
-   /* PLUGIN | TOASTIFY  */
-   
-   .Toastify__toat--toast--success {
-		background-color: ${({ theme }) => theme.warning_color} !important;
-   }
-   
+   /* **************************************************** */
    /* PLUGIN | REACT-TABLE */
+   /* **************************************************** */
 
    .ReactTable {
       border: 0.1rem solid ${({ theme }) => theme.gray_black};
@@ -102,7 +99,9 @@ export const GlobalStyle = createGlobalStyle`
       }
    }
 
+   /* **************************************************** */
    /* PLUGIN | REACT-SELECT */
+   /* **************************************************** */
 
    .react-select {
       min-width: 25%;
@@ -159,4 +158,50 @@ export const GlobalStyle = createGlobalStyle`
          }
       }
    }
+
+   /* **************************************************** */
+   /* PLUGIN | REACT-TOASTIFY */
+   /* **************************************************** */
+
+   .Toastify__toast {
+      position: relative;
+      min-height: 64px;
+      box-sizing: border-box;
+      margin-bottom: 1rem;
+      padding: 8px;
+      border-radius: ${({ theme }) => theme.global_border_radius} !important;
+      box-shadow: ${({ theme }) => theme.global_shadow} !important;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-pack: justify; 
+      justify-content: space-between;
+      max-height: 800px;
+      overflow: hidden;
+      font-family: ${({ theme }) => theme.font_body} !important;
+      cursor: pointer;
+      direction: ltr; 
+   }
+   .Toastify__toast--rtl {
+      direction: rtl; 
+   }
+   .Toastify__toast--default {
+      background: ${({ theme }) => theme.text_primary} !important;
+      color: #aaa; 
+   }
+   .Toastify__toast--info {
+      background: ${({ theme }) => theme.info_color} !important; 
+   }
+   .Toastify__toast--success {
+      background: ${({ theme }) => theme.success_color} !important; 
+   }
+   .Toastify__toast--warning {
+      background: ${({ theme }) => theme.warning_color} !important; 
+   }
+   .Toastify__toast--error {
+      background: ${({ theme }) => theme.error_color} !important;
+   }
+   .Toastify__toast-body {
+      margin: auto 0;
+      -ms-flex: 1;
+      flex: 1; }
 `;

@@ -14,11 +14,11 @@ import { Heading } from '../../Library/Text/Heading';
 import { useDocumentTitleSetter } from '../../Hooks/useDocumentTitleSetter';
 
 export const EconCalculator: React.SFC = () => {
-	const [economyList, setEconomyList] = useState([] as EconomyEvent[]);
 	const [selected, setSelected] = useState(null as number);
 	const [displayAddNewForm, setDisplayAddNewForm] = useState(false);
 	useDocumentTitleSetter('Household Calculator');
 
+	const [economyList, setEconomyList] = useState([] as EconomyEvent[]);
 	useEffect(() => {
 		// static (runs once)
 		database
