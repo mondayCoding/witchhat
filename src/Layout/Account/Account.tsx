@@ -1,208 +1,220 @@
 import React, { Component, useState, useEffect, useContext } from 'react';
 import { Button } from '../../Library/Button/Button';
-import { Field as FieldWrapper } from '../../Library/Field/Field';
-import { Select } from '../../Library/Select/Select';
-import { ChromePicker, ColorResult } from 'react-color';
-import { SliderCheckbox } from '../../Library/Checkbox/CheckboxSlider';
-import { toast } from 'react-toastify';
-import styled, { themeContext } from '../../Library/theme';
-import { defaultTheme, themed_alt } from '../../Library/theme';
+import Notify from '../../UtilsUI/Notification';
+import { themeContext, ThemeContextVal } from '../../Library/theme';
+import { defaultTheme, lightTheme } from '../../Library/theme';
 import { Heading } from '../../Library/Text/Heading';
 import { Formik, FormikProps, Field } from 'formik';
 import * as Yup from 'yup';
 import Icons from '../../UtilsUI/Icons';
-import { readableColor } from 'polished';
+import { MenuWrapper } from './AccountStyles';
+import { LineDivider } from '../../Library/Utility/Divider';
+import { ColorPicker } from './ColorPicker';
+import { Select } from '../../Library/Select/Select';
+import { database } from '../../Firebase';
+import { useDocumentTitleSetter } from '../../Hooks/useDocumentTitleSetter';
 
 export const Account: React.SFC = () => {
-	const [primaryUserColor, setPrimary] = useState('');
-	const [secondaryUserColor, setSecondary] = useState('');
-	const [themeColor3, setThemeColor3] = useState('');
+	const { setCurrentTheme, currentTheme } = useContext(
+		themeContext
+	) as ThemeContextVal;
+	useDocumentTitleSetter('Account');
 
-	const setUITheme = useContext(themeContext) as any;
+	const setCustomUserTheme = (newTheme: typeof defaultTheme) => {
+		Notify.success('Setting New theme');
+		setCurrentTheme(newTheme);
 
-	const setNewThemeColor3 = (values: ColorResult) => {
-		const newHexValue = values.hex;
-		setThemeColor3(newHexValue);
+		database
+			.collection('configuration')
+			.doc('theme')
+			.set(newTheme);
 	};
 
-	const setGlobalTheme = () => {
-		toast.success('setting new theme');
-		setUITheme(themed_alt);
-	};
+	const setDefaultTheme = () => setCustomUserTheme(defaultTheme);
+	const setLightTheme = () => setCustomUserTheme(lightTheme);
 
 	return (
 		<div>
 			<Heading
-				text="User Customisation"
+				text="UI Theme Customisation"
 				hasUnderline={true}
 				marginAfter={true}
 				type={'h3'}
 			/>
 
 			<Formik
-				initialValues={initialValues}
-				render={Form}
-				onSubmit={onSubmit}
+				enableReinitialize={true}
+				initialValues={currentTheme}
+				onSubmit={(values: typeof currentTheme) => setCustomUserTheme(values)}
 				validationSchema={validationSchema}
-			/>
-			{/* <Heading text="non interactice" hasUnderline={true} />
-			<ChromePicker
-				color={themeColor3}
-				disableAlpha={true}
-				onChangeComplete={(values) => setNewThemeColor3(values)}
-			/>
+			>
+				{({ handleReset, handleSubmit, dirty }) => (
+					<MenuWrapper>
+						<div className="buttons">
+							<Button
+								iconBeforeText={Icons.reset}
+								text="Reset"
+								onClick={handleReset}
+								disabled={!dirty}
+							/>
 
-			<Button onClick={setGlobalTheme} text="Set Global Color" />
-			<SliderCheckbox label="label" id={'tesxt_cb'} />
-			<SliderCheckbox disabled={true} label="label" id={'tesxt_cb2'} />
-			{themeColor3 && <h2 style={{ color: themeColor3 }}>{themeColor3}</h2>} */}
+							<Button
+								iconBeforeText={Icons.arrowRight}
+								text="Apply Customization"
+								onClick={handleSubmit}
+								disabled={!dirty}
+							/>
+
+							<Button text="Night (Default)" onClick={setDefaultTheme} />
+
+							<Button text="Light" onClick={setLightTheme} />
+						</div>
+						<LineDivider />
+
+						<Heading
+							text="Primary UI color"
+							type="h5"
+							ingress="Choose main themed color, used most prominently on input elements and in navigation"
+						/>
+						<Field
+							name="primary"
+							text={'Primary color'}
+							component={ColorPicker}
+						/>
+						<LineDivider />
+
+						<Heading
+							text="Text Color"
+							type="h5"
+							ingress="Default text color used in most parts of the application"
+						/>
+						<Field
+							name="text_primary"
+							text={'Text color'}
+							component={ColorPicker}
+						/>
+						<LineDivider />
+
+						{/* <Heading
+                     text="Secondary Theme color"
+                     type="h5"
+                     ingress="Secondary theme color used to highlight some elements"
+                  />
+                  <Field name="secondary" text={'Secondary color'} component={ColorPicker} />
+                  <LineDivider /> */}
+
+						<Heading
+							text="Navigation Background"
+							type="h5"
+							ingress="Choose background color for Navigation Panel"
+						/>
+						<Field
+							name="nav_background_color"
+							text={'Navigation BG'}
+							component={ColorPicker}
+						/>
+						<LineDivider />
+
+						<Heading
+							text="Page Background"
+							type="h5"
+							ingress="Choose background color for Page Content"
+						/>
+						<Field
+							name="main_background_color"
+							text={'Page BG'}
+							component={ColorPicker}
+						/>
+					</MenuWrapper>
+				)}
+			</Formik>
 		</div>
 	);
 };
 
-const initialValues = defaultTheme;
-const validationSchema = Yup.object().shape({});
-const onSubmit = (values: any) => console.log(values);
-
-const PickerWrapper = styled.div`
-	display: flex;
-
-	.chrome-picker {
-		flex: 0.5 0.5 20rem;
-		max-width: 20rem;
-
-		& + .chrome-picker {
-			margin-left: 1rem;
-		}
-	}
-`;
-
-const ColorSampleWrapper = styled.div`
-	display: flex;
-	padding: 1rem 0;
-
-	.sampler {
-		flex: 0.5 0.5 20rem;
-		border-radius: ${({ theme }) => theme.global_border_radius};
-		align-items: center;
-		justify-content: center;
-		overflow: hidden;
-		height: 2rem;
-		max-width: 20rem;
-		display: flex;
-
-		.sample {
-			flex: 1 1 auto;
-			width: 100%;
-			background-color: black;
-			color: ${(props) => readableColor(props.color)};
-			text-align: center;
-			font-weight: 700;
-		}
-
-		& + .sampler {
-			margin-left: 1rem;
-		}
-	}
-`;
+const initialValues = { ...defaultTheme };
+const validationSchema = Yup.object().shape({
+	primary: Yup.string(),
+	secondary: Yup.string()
+});
 
 const Form = ({
 	handleReset,
 	handleSubmit,
-	setFieldValue,
-	setFieldTouched,
-	values,
-	touched,
 	dirty
 }: FormikProps<typeof initialValues>) => {
 	return (
-		<div>
-			<Heading text="Choose primary UI color" type="h4" />
-			<PickerWrapper>
-				<ChromePicker
-					color={values.primary}
-					disableAlpha={true}
-					onChangeComplete={(value) => {
-						setFieldValue('primary', value.hex);
-						setFieldTouched('primary');
-					}}
+		<MenuWrapper>
+			<div className="buttons">
+				<Button
+					iconBeforeText={Icons.reset}
+					text="Reset"
+					onClick={handleReset}
+					disabled={!dirty}
 				/>
-				<ChromePicker
-					color={values.secondary}
-					disableAlpha={true}
-					onChangeComplete={(value) => {
-						setFieldValue('secondary', value.hex);
-						setFieldTouched('secondary');
-					}}
-				/>
-			</PickerWrapper>
-			<ColorSampleWrapper color={values.primary}>
-				<div className="sampler">
-					<div className="sample" style={{ backgroundColor: values.primary }}>
-						<b>Primary</b>
-					</div>
-				</div>
-				<div className="sampler">
-					<div className="sample" style={{ backgroundColor: values.secondary }}>
-						<b>Secondary</b>
-					</div>
-				</div>
-			</ColorSampleWrapper>
 
-			<Heading text="Choose secondary UI color" type="h4" />
-			<PickerWrapper>
-				<ChromePicker
-					color={values.primary}
-					disableAlpha={true}
-					onChangeComplete={(value) => {
-						setFieldValue('primary', value.hex);
-						setFieldTouched('primary');
-					}}
+				<Button
+					iconBeforeText={Icons.arrowRight}
+					text="Apply"
+					onClick={handleSubmit}
+					disabled={!dirty}
 				/>
-				<ChromePicker
-					color={values.secondary}
-					disableAlpha={true}
-					onChangeComplete={(value) => {
-						setFieldValue('secondary', value.hex);
-						setFieldTouched('secondary');
-					}}
-				/>
-			</PickerWrapper>
-			<ColorSampleWrapper color={values.primary}>
-				<div className="sampler">
-					<div className="sample" style={{ backgroundColor: values.primary }}>
-						<b>Primary</b>
-					</div>
-				</div>
-				<div className="sampler">
-					<div className="sample" style={{ backgroundColor: values.secondary }}>
-						<b>Secondary</b>
-					</div>
-				</div>
-			</ColorSampleWrapper>
-			<Button
-				iconBeforeText={Icons.reset}
-				text="Reset"
-				onClick={handleReset}
-				disabled={!dirty}
-			/>
+				<Select options={ThemeOptions} />
+			</div>
+			<LineDivider />
 
-			<Button
-				iconBeforeText={Icons.arrowRight}
-				onClick={handleSubmit}
-				disabled={!dirty}
+			<Heading
+				text="Primary UI color"
+				type="h5"
+				ingress="Choose main themed color, used most prominently on input elements and in navigation"
 			/>
-		</div>
+			<Field name="primary" text={'Primary color'} component={ColorPicker} />
+			<LineDivider />
+
+			<Heading
+				text="Text Color"
+				type="h5"
+				ingress="Default text color used in most parts of the application"
+			/>
+			<Field name="text_primary" text={'Text color'} component={ColorPicker} />
+			<LineDivider />
+
+			{/* <Heading
+				text="Secondary Theme color"
+				type="h5"
+				ingress="Secondary theme color used to highlight some elements"
+			/>
+			<Field name="secondary" text={'Secondary color'} component={ColorPicker} />
+			<LineDivider /> */}
+
+			<Heading
+				text="Navigation Background"
+				type="h5"
+				ingress="Choose background color for Navigation Panel"
+			/>
+			<Field
+				name="nav_background_color"
+				text={'Navigation BG'}
+				component={ColorPicker}
+			/>
+			<LineDivider />
+
+			<Heading
+				text="Page Background"
+				type="h5"
+				ingress="Choose background color for Page Content"
+			/>
+			<Field
+				name="main_background_color"
+				text={'Page BG'}
+				component={ColorPicker}
+			/>
+		</MenuWrapper>
 	);
 };
 
-const nom = [
-	{ label: 'nom', value: 'nam1' },
-	{ label: 'nom3', value: 'nam2' },
-	{ label: 'nom', value: 'nam3' },
-	{ label: 'nom3', value: 'nam4' },
-	{ label: 'nom', value: 'nam5' },
-	{ label: 'nom3', value: 'nam6' },
-	{ label: 'nom', value: 'nam7' },
-	{ label: 'nom3', value: 'nam8' }
+const ThemeOptions = [
+	{ label: 'Night (Default)', value: '1' },
+	{ label: 'Day', value: '2' },
+	{ label: 'Custom', value: '3' }
 ];

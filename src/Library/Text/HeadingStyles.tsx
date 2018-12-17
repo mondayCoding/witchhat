@@ -10,7 +10,9 @@ export interface Props {
 
 const shared = css`
 	display: block;
-	color: ${({ theme, isThemed }) => (isThemed ? theme.primary : theme.gray_light)};
+	margin-bottom: 0.5rem;
+	color: ${({ theme, isThemed }) =>
+		isThemed ? theme.primary : theme.text_primary};
 	${(props: Props) =>
 		props.hasUnderline &&
 		css`
@@ -35,7 +37,8 @@ const shared = css`
 
 export const Ingress = styled.span`
 	display: block;
-	margin-bottom: 1rem;
+	font-size: 95%;
+	margin-bottom: 0.5rem;
 	margin-top: -0.25rem;
 	font-style: italic;
 `;
@@ -61,7 +64,7 @@ export const H4 = styled.h4`
 `;
 
 export const H5 = styled.h5`
-	color: ${({ theme }) => theme.gray_light};
+	color: ${({ theme }) => theme.text_primary};
 	font-size: 1rem;
 	${shared}
 `;

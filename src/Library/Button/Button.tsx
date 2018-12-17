@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ThemedButton, styleProps } from './ButtonStyle';
+import { ThemedButton, StyleProps } from './ButtonStyle';
 
 export interface IProps extends React.ButtonHTMLAttributes<{}> {
 	autoFocus?: boolean;
@@ -10,7 +10,7 @@ export interface IProps extends React.ButtonHTMLAttributes<{}> {
 	onClick?(params?: any): any;
 }
 
-export const Button: React.SFC<IProps & Partial<styleProps>> = ({
+export const Button: React.SFC<IProps & Partial<StyleProps>> = ({
 	text,
 	iconBeforeText,
 	iconAfterText,

@@ -2,7 +2,7 @@ import styled, { defaultTheme } from '../theme';
 
 export const ThemedInput = styled.input`
 	background: none;
-	color: ${({ theme }) => theme.gray_light};
+	color: ${({ theme }) => theme.text_primary};
 	border: none;
 	display: flex;
 	flex: 1 1 auto;

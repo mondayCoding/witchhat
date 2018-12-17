@@ -1,4 +1,3 @@
-import { defaultTheme } from '../Library/theme';
 import styled from '../Library/theme';
 import { NavLink } from 'react-router-dom';
 
@@ -6,10 +5,8 @@ export const ThemedLayout = styled.div`
 	display: flex;
 	flex-direction: row;
 	width: 100%;
-	min-height: 20rem;
-	background-color: ${(props) => props.theme.gray_heavy};
 	min-height: 100vh;
-	color: ${(props) => props.theme.gray_light};
+	color: ${(props) => props.theme.text_primary};
 	text-align: left;
 	font-family: ${({ theme }) => theme.font_body};
 
@@ -17,7 +14,8 @@ export const ThemedLayout = styled.div`
 		flex: 0 0 20%;
 		display: flex;
 		flex-direction: column;
-		background-color: ${({ theme }) => theme.gray_black};
+		background-color: ${({ theme }) => theme.nav_background_color};
+		transition: background-color 0.35s ease-in-out;
 
 		> .link--wrapper {
 			position: sticky;
@@ -28,7 +26,9 @@ export const ThemedLayout = styled.div`
 	> main.main {
 		flex: 0 0 80%;
 		padding: 1rem;
+		background-color: ${({ theme }) => theme.main_background_color};
 		box-shadow: ${(props) => props.theme.global_shadow_inset};
+		transition: background-color 0.35s ease-in-out;
 	}
 `;
 
@@ -38,7 +38,7 @@ export const ThemedLink = styled(NavLink)`
 	padding: 0.5rem 1rem;
 	font-size: 1rem;
 	text-decoration: none;
-	color: ${(props) => props.theme.gray_light};
+	color: ${(props) => props.theme.text_primary};
 	text-align: left;
 	transition: background-color 0.2s ease-in-out;
 

@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect, Suspense } from 'react';
 import { EconomyEvent } from './Types/EconomyEvent';
 import { database } from '../../Firebase/index';
 import 'react-table/react-table.css';
@@ -11,11 +11,13 @@ import { EditEventView } from './EditEventView';
 import Icons from '../../UtilsUI/Icons';
 import { BudjetGraphs } from './BudjetGraphs';
 import { Heading } from '../../Library/Text/Heading';
+import { useDocumentTitleSetter } from '../../Hooks/useDocumentTitleSetter';
 
 export const EconCalculator: React.SFC = () => {
 	const [economyList, setEconomyList] = useState([] as EconomyEvent[]);
 	const [selected, setSelected] = useState(null as number);
-	const [addNew, setAddnew] = useState(false);
+	const [displayAddNewForm, setDisplayAddNewForm] = useState(false);
+	useDocumentTitleSetter('Household Calculator');
 
 	useEffect(() => {
 		// static (runs once)
@@ -63,6 +65,7 @@ export const EconCalculator: React.SFC = () => {
 				isUpperCase={true}
 				marginAfter={true}
 			/>
+
 			{selected ? (
 				<EditEventView return={() => setSelected(null)} item={economyList} />
 			) : (
@@ -79,16 +82,16 @@ export const EconCalculator: React.SFC = () => {
 
 			<BudjetGraphs list={economyList} />
 
-			{addNew ? (
+			{displayAddNewForm ? (
 				<CreateNewEventForm
 					onSubmit={(values) => doCreateNewEvent(values)}
-					onReset={() => setAddnew(false)}
+					onReset={() => setDisplayAddNewForm(false)}
 				/>
 			) : (
 				<Button
 					iconBeforeText={Icons.plus}
 					text="Add new event"
-					onClick={() => setAddnew(true)}
+					onClick={() => setDisplayAddNewForm(true)}
 				/>
 			)}
 		</StyleList>

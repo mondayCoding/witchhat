@@ -24,7 +24,7 @@ export const CloseButton = styled.div`
 
 	&::before,
 	&::after {
-		background-color: ${({ theme }) => theme.gray_light};
+		background-color: ${({ theme }) => theme.text_primary};
 		content: '';
 		display: block;
 		height: 0.3rem;

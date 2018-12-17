@@ -6,6 +6,7 @@
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
 		"strict": true,
+		"lib": ["es2015", "dom", "es5", "scripthost"],
 		"strictNullChecks": false,
 		"forceConsistentCasingInFileNames": true,
 		"module": "esnext",

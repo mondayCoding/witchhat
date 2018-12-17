@@ -16,10 +16,11 @@ export const ThemedWrapper = styled.div`
 
 export const ThemedLabel = styled.label`
 	align-items: center;
-	background-color: ${transparentize(0.5, 'black')};
+	/* background-color: ${transparentize(0.5, 'black')}; */
+	background-color: ${({ theme }) => theme.nav_background_color};
 	border-bottom-left-radius: ${({ theme }) => theme.global_border_radius};
 	border-top-left-radius: ${({ theme }) => theme.global_border_radius};
-	color: ${({ theme }) => theme.gray_light};
+	color: ${({ theme }) => theme.text_primary};
 	cursor: pointer;
 	display: flex;
 	flex: 0 0 10rem;
@@ -30,10 +31,8 @@ export const ThemedLabel = styled.label`
 
 	@media (max-width: 900px) {
 		border-bottom-left-radius: 0 !important;
-		border-top-left-radius: ${({ theme }) =>
-			theme.global_border_radius} !important;
-		border-top-right-radius: ${({ theme }) =>
-			theme.global_border_radius} !important;
+		border-top-left-radius: ${({ theme }) => theme.global_border_radius} !important;
+		border-top-right-radius: ${({ theme }) => theme.global_border_radius} !important;
 		flex: 0 0 auto !important;
 	}
 `;

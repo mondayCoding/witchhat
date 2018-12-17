@@ -11,12 +11,12 @@ import { Landing } from './Landing/Landing';
 import { ForgotPassword } from './ForgotPassword/ForgotPassword';
 import { Home } from './Home/Home';
 import { ThemedLayout, ThemedLink } from './SiteStyles';
+import { GlobalStyle } from './GlobalStyles';
 import { SignIn } from './SignIn/SignIn';
 import { EconCalculator } from './EconomyCalc/EconCalculator';
-import { ThemeProvider } from 'styled-components';
-import { defaultTheme, ThemeManager } from '../Library/theme';
-import { auth, firebase } from '../Firebase/index';
-import { ToastContainer, toast } from 'react-toastify';
+import { ThemeManager } from '../Library/theme';
+import { auth, firebase, database } from '../Firebase/index';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.SFC = () => {
@@ -121,10 +121,15 @@ const NonAuthNavigation = () => (
 export const ThemedApp = () => {
 	return (
 		<ThemeManager>
+			<GlobalStyle />
 			<BrowserRouter>
 				<App />
 			</BrowserRouter>
-			<ToastContainer draggablePercent={40} hideProgressBar={true} />
+			<ToastContainer
+				draggablePercent={40}
+				hideProgressBar={true}
+				toastClassName={'TOAST'}
+			/>
 		</ThemeManager>
 	);
 };

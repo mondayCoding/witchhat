@@ -63,3 +63,5 @@ export const EventTable: React.SFC<{
 		]}
 	/>
 );
+
+export default EventTable;

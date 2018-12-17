@@ -44,7 +44,7 @@ export const Icons = {
 	calendar: <i className="fas fa-calendar-alt" />,
 	undo: <i className="fas fa-undo" />,
 	redo: <i className="fas fa-redo" />,
-	reset: <i className="fas fa-fa-undo" />
+	reset: <i className="fas fa-undo" />
 };
 
 export default Icons;

@@ -1,13 +1,13 @@
 import styled, { css, defaultTheme } from '../theme';
 
-export interface styleProps {
+export interface StyleProps {
 	isRounded: boolean;
 	isWide: boolean;
 	isSquare: boolean;
 	isUpperCase: boolean;
 }
 
-type props = Partial<styleProps>;
+type props = Partial<StyleProps>;
 
 export const ThemedButton = styled.button`
 	background-color: ${({ theme }) => theme.primary};
@@ -60,6 +60,10 @@ export const ThemedButton = styled.button`
 	}
 
 	& + & {
+		margin-left: 0.5rem;
+	}
+
+	> span + span {
 		margin-left: 0.5rem;
 	}
 `;

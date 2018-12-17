@@ -7,9 +7,12 @@ import { FormikTextInput } from '../../Library/Formik/FormikField';
 import { Limiter } from '../../Library/Utility/Wrappers';
 import { auth } from '../../Firebase/index';
 import * as routes from '../../Constants/Routes';
-import { ToastContainer, toast } from 'react-toastify';
+import Notify from '../../UtilsUI/Notification';
+import { useDocumentTitleSetter } from '../../Hooks/useDocumentTitleSetter';
 
 export const SignUp: React.SFC<RouteComponentProps> = ({ history }) => {
+	useDocumentTitleSetter('Sign Up');
+
 	const handleSubmit = (values: any, resetForm: () => void) => {
 		if (confirm('really?')) {
 			auth
@@ -18,11 +21,11 @@ export const SignUp: React.SFC<RouteComponentProps> = ({ history }) => {
 					resetForm();
 					history.push(routes.LANDING);
 					console.log(authe);
-					toast.success('Created new user');
+					Notify.success('Created new user');
 				})
 				.catch((error) => {
 					console.log(error);
-					toast.warn(error.message);
+					Notify.warn(error.message);
 				});
 		}
 	};

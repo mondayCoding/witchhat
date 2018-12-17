@@ -6,22 +6,25 @@ import { FormikTextInput } from '../../Library/Formik/FormikField';
 import { Limiter } from '../../Library/Utility/Wrappers';
 import * as routes from '../../Constants/Routes';
 import { RouteComponentProps } from 'react-router';
-import { ToastContainer, toast } from 'react-toastify';
 import { auth } from '../../Firebase/index';
 import { Heading } from '../../Library/Text/Heading';
+import Notify from '../../UtilsUI/Notification';
+import { useDocumentTitleSetter } from '../../Hooks/useDocumentTitleSetter';
 
 export const SignIn: React.SFC<RouteComponentProps> = ({ history }) => {
+	useDocumentTitleSetter('Sign In');
+
 	const handleSubmit = (values: any, resetForm: () => void) => {
 		auth
 			.signInWithEmailAndPassword(values.email, values.password)
 			.then((authe: any) => {
 				history.push(routes.LANDING);
 				console.log(authe);
-				toast.success('Successfully signed in');
+				Notify.success('Successfully signed in');
 			})
 			.catch((error) => {
 				console.log(error);
-				toast.error(error.message);
+				Notify.error(error.message);
 			});
 	};
 
@@ -42,8 +45,12 @@ const Form = ({
 	values,
 	dirty
 }: FormikProps<typeof initialValues>) => (
-	<Limiter centered={true} >
-		<Heading text="Sign in" hasUnderline={true} ingress="Beware he who enters, there is no god inside" />
+	<Limiter centered={true}>
+		<Heading
+			text="Sign in"
+			hasUnderline={true}
+			ingress="Beware he who enters, there is no god inside"
+		/>
 		<Field
 			name="email"
 			type="email"
