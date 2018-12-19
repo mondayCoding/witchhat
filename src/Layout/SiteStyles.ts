@@ -29,6 +29,7 @@ export const ThemedLayout = styled.div`
 		background-color: ${({ theme }) => theme.main_background_color};
 		box-shadow: ${(props) => props.theme.global_shadow_inset};
 		transition: background-color 0.35s ease-in-out;
+		overflow: hidden;
 	}
 `;
 

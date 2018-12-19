@@ -64,6 +64,14 @@ export const GlobalStyle = createGlobalStyle`
       flex-direction: column;
       margin-bottom: 0.75rem;
 
+      .rt-thead .rt-th.-sort-desc, .ReactTable .rt-thead .rt-td .-sort-desc {
+         box-shadow: inset 0 -3px 0 0 ${({ theme }) => theme.primary} !important;
+      }
+      .rt-thead .rt-th.-sort-asc, .ReactTable .rt-thead .rt-td.-sort-asc {
+         box-shadow: inset 0 3px 0 0 ${({ theme }) => theme.primary} !important;
+      }
+
+
       .rt-tbody {
          border-top: .1rem solid ${({ theme }) => theme.gray_black};   
          
@@ -106,6 +114,7 @@ export const GlobalStyle = createGlobalStyle`
    .react-select {
       min-width: 25%;
       cursor: pointer;
+
 
       .react-select__control {
          background-color: ${({ theme }) => theme.main_background_color};

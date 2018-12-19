@@ -4,10 +4,15 @@ import { Occurance, OccurranceConstant } from './Types/EconomyOccurrance';
 import { EconomyEvent } from './Types/EconomyEvent';
 import { Button } from '../../Library/Button/Button';
 import { Formik, FormikProps, Field } from 'formik';
-import { FormikSelect, FormikTextInput } from '../../Library/Formik/FormikField';
+import {
+	FormikSelect,
+	FormikTextInput,
+	FormikTextInputPlain
+} from '../../Library/Formik/FormikField';
 import * as Yup from 'yup';
 import Icons from '../../UtilsUI/Icons';
 import { Field as Wrapper } from '../../Library/Field/Field';
+import { Limiter } from '../../Library/Utility/Wrappers';
 
 const Form = ({
 	handleSubmit,
@@ -17,11 +22,11 @@ const Form = ({
 }: FormikProps<EconomyEvent> & { handleCancel(): any }) => (
 	<div>
 		<Wrapper label="Name">
-			<Field name="name" placeholder="Name" component={FormikTextInput} />
+			<Field name="name" placeholder="Name" component={FormikTextInputPlain} />
 		</Wrapper>
 
 		<Wrapper label="Value">
-			<Field name="value" placeholder="Value" component={FormikTextInput} />
+			<Field name="value" placeholder="Value" component={FormikTextInputPlain} />
 		</Wrapper>
 
 		<Wrapper label="Type">
@@ -61,18 +66,22 @@ const Form = ({
 	</div>
 );
 
-export const FormikForm: React.SFC<{
+export const EconomicAffectForm: React.SFC<{
 	item: EconomyEvent;
 	handleCancel?(): any;
 	submitForm(x: Partial<EconomyEvent>): void;
 }> = ({ handleCancel, submitForm, item }) => (
-	<Formik
-		// enableReinitialize={true}
-		initialValues={item}
-		render={(props) => <Form handleCancel={handleCancel} {...props} />}
-		validationSchema={validationSchema}
-		onSubmit={(values) => submitForm(values)}
-	/>
+	<Limiter>
+		<Formik
+			// enableReinitialize={true}
+			initialValues={item}
+			render={(props) => <Form handleCancel={handleCancel} {...props} />}
+			validationSchema={validationSchema}
+			onSubmit={(values) =>
+				submitForm({ ...values, value: parseFloat(values.value as any) })
+			}
+		/>
+	</Limiter>
 );
 
 const validationSchema = Yup.object().shape({

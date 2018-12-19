@@ -1,4 +1,5 @@
 import { TextInput } from '../TextInput/TextInput';
+import { TextInputPlain } from '../TextInput/TextInputPlain';
 import { FieldProps } from 'formik';
 import { Select } from '../Select/Select';
 import React from 'react';
@@ -9,6 +10,18 @@ export const FormikTextInput = ({
 	...props
 }: FieldProps) => (
 	<TextInput
+		{...field}
+		{...props}
+		error={touched[field.name] && errors[field.name]}
+	/>
+);
+
+export const FormikTextInputPlain = ({
+	field,
+	form: { touched, errors },
+	...props
+}: FieldProps) => (
+	<TextInputPlain
 		{...field}
 		{...props}
 		error={touched[field.name] && errors[field.name]}

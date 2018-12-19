@@ -1,8 +1,8 @@
 import React from 'react';
-import { EventType } from './Types/EconomyType';
-import { Occurance } from './Types/EconomyOccurrance';
-import { EconomyEvent } from './Types/EconomyEvent';
-import { Heading } from '../../Library/Text/Heading';
+import { EventType } from '../Types/EconomyType';
+import { Occurance } from '../Types/EconomyOccurrance';
+import { EconomyEvent } from '../Types/EconomyEvent';
+import { Heading } from '../../../Library/Text/Heading';
 
 export const BudjetCalculations: React.SFC<{ list: EconomyEvent[] }> = ({
 	list

@@ -18,10 +18,8 @@ export const ThemedInput = styled.input`
 `;
 
 interface nom {
-	error: string;
+	error?: string;
 }
-
-type nam = Partial<nom>;
 
 export const ThemedWrapper = styled.div<nom>`
 	border: 0.1rem solid;
@@ -33,10 +31,27 @@ export const ThemedWrapper = styled.div<nom>`
 	flex-direction: column;
 	max-width: 100%;
 	position: relative;
-	transition: border-color 2s ease-in-out, box-shadow 0.2s ease-in-out;
+	transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 
 	&:hover {
 		box-shadow: 0 0 0.4rem ${({ theme }) => theme.primary};
+	}
+
+	& + & {
+		margin-top: 0.5rem;
+	}
+`;
+
+export const ThemePlainWrapper = styled.div<nom>`
+	display: flex;
+	flex-direction: column;
+	max-width: 100%;
+	position: relative;
+	border: 0.1rem solid transparent;
+	transition: border-color 0.2s ease-in-out;
+
+	&:hover {
+		border: 0.1rem solid ${({ theme }) => theme.primary};
 	}
 
 	& + & {

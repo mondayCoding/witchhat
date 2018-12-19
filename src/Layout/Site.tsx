@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router';
+import { Switch, Route, Redirect, RouteComponentProps } from 'react-router';
 import * as routes from '../Constants/Routes';
 import navicons from '../UtilsUI/Icons';
 import { BrowserRouter } from 'react-router-dom';
@@ -19,6 +19,7 @@ import { auth } from '../Firebase/index';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuthState } from '../Hooks/useAuthState';
+import { Heading } from '../Library/Text/Heading';
 
 const App: React.SFC = () => {
 	const { userAuth } = useAuthState();
@@ -41,6 +42,7 @@ const App: React.SFC = () => {
 						component={ForgotPassword}
 					/>
 					<Route exact={true} path={'/econ'} component={EconCalculator} />
+					<Route exact={true} path={'/econ/:id'} component={DynamicRoute} />
 					<Route exact={true} path={'/counter'} component={COUNTER} />
 					<Route exact={true} path={'/mouse_logger'} component={LOGPOSITION} />
 					<Redirect to="/" />
@@ -49,6 +51,17 @@ const App: React.SFC = () => {
 		</ThemedLayout>
 	);
 };
+
+const DynamicRoute: React.SFC<RouteComponentProps<{ id: string }>> = ({ match }) => (
+	<div>
+		<Heading
+			text="DYNAMIC ROUTE"
+			ingress="this is very dynamic route"
+			hasUnderline
+		/>
+		<span>Route ID: {match.params.id}</span>
+	</div>
+);
 
 const AuthNavigation = () => (
 	<div className="link--wrapper">

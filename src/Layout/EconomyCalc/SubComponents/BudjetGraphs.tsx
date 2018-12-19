@@ -1,5 +1,5 @@
 import React from 'react';
-import { EconomyEvent } from './Types/EconomyEvent';
+import { EconomyEvent } from '../Types/EconomyEvent';
 import {
 	ResponsiveContainer,
 	LineChart,
@@ -10,10 +10,10 @@ import {
 	Line,
 	CartesianGrid
 } from 'recharts';
-import { EventTypeConstant, EventType } from './Types/EconomyType';
-import { defaultTheme } from '../../Library/theme';
-import { Occurance } from './Types/EconomyOccurrance';
-import { Heading } from '../../Library/Text/Heading';
+import { EventTypeConstant, EventType } from '../Types/EconomyType';
+import { defaultTheme } from '../../../Library/theme';
+import { Occurance } from '../Types/EconomyOccurrance';
+import { Heading } from '../../../Library/Text/Heading';
 
 const getMontlyValue = ({ repeat, value, type }: EconomyEvent) => {
 	const annualRepeats = Occurance[repeat].annualRepeats;

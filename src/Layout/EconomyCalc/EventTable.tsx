@@ -7,6 +7,7 @@ import { Button } from '../../Library/Button/Button';
 import { EventTag } from './Styles';
 import { Heading } from '../../Library/Text/Heading';
 import { CloseButton } from '../../Library/Utility/CloseButton';
+import { Link } from 'react-router-dom';
 
 export const EventTable: React.SFC<{
 	dataList: EconomyEvent[];
@@ -26,6 +27,7 @@ export const EventTable: React.SFC<{
 					return (
 						<EventTag onClick={() => onSelection(id)}>{props.value}</EventTag>
 					);
+					// return <Link to={`${location.pathname}/${id}`}>{props.value}</Link>;
 				}
 			},
 			{
