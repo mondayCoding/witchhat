@@ -8,6 +8,7 @@ export interface IProps extends React.ButtonHTMLAttributes<{}> {
 	iconBeforeText?: React.ReactNode;
 	iconAfterText?: React.ReactNode;
 	condition?: boolean;
+	conditionSecond?: boolean;
 	onClick?(params?: any): any;
 }
 
