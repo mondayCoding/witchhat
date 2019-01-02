@@ -2,15 +2,16 @@ import React, { Component, useState, useEffect } from 'react';
 import { Formik, FormikProps, Field, FieldProps } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '../../Library/Button/Button';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom';
 import { FormikTextInput } from '../../Library/Formik/FormikField';
 import { Limiter } from '../../Library/Utility/Wrappers';
 import { auth } from '../../Firebase/index';
 import * as routes from '../../Constants/Routes';
 import Notify from '../../UtilsUI/Notification';
 import { useDocumentTitleSetter } from '../../Hooks/useDocumentTitleSetter';
+import { Heading } from '../../Library/Text/Heading';
 
-export const SignUp: React.SFC<RouteComponentProps> = ({ history }) => {
+export const SignUp: React.SFC<Partial<RouteComponentProps>> = ({ history }) => {
 	useDocumentTitleSetter('Sign Up');
 
 	const handleSubmit = (values: any, resetForm: () => void) => {
@@ -33,7 +34,7 @@ export const SignUp: React.SFC<RouteComponentProps> = ({ history }) => {
 	return (
 		<div className="App">
 			<Formik
-				render={Form}
+				render={SignUpForm}
 				initialValues={initialValues}
 				validationSchema={validationSchema}
 				onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}
@@ -42,13 +43,18 @@ export const SignUp: React.SFC<RouteComponentProps> = ({ history }) => {
 	);
 };
 
-const Form = ({
+const SignUpForm = ({
 	handleSubmit,
 	values,
 	dirty
 }: FormikProps<typeof initialValues>) => (
 	<Limiter centered={true}>
-		<h2>Sign Up</h2>
+		<Heading
+			text="Sign Up"
+			hasUnderline={true}
+			ingress="Beware he who enters, there is no god inside"
+		/>
+
 		<Field
 			name="email"
 			type="email"
@@ -68,9 +74,11 @@ const Form = ({
 			placeholder="Confirm Password"
 		/>
 		<Button text="Submit" disabled={!dirty} onClick={handleSubmit} />
-		<div>{values.email}</div>
+		<Link to={routes.SIGN_IN}>Already have Account</Link>
+
+		{/* <div>{values.email}</div>
 		<div>{values.password}</div>
-		<div>{values.passwordConfirm}</div>
+		<div>{values.passwordConfirm}</div> */}
 	</Limiter>
 );
 

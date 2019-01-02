@@ -10,8 +10,9 @@ import { auth } from '../../Firebase/index';
 import { Heading } from '../../Library/Text/Heading';
 import Notify from '../../UtilsUI/Notification';
 import { useDocumentTitleSetter } from '../../Hooks/useDocumentTitleSetter';
+import { Link } from 'react-router-dom';
 
-export const SignIn: React.SFC<RouteComponentProps> = ({ history }) => {
+export const SignIn: React.SFC<Partial<RouteComponentProps>> = ({ history }) => {
 	useDocumentTitleSetter('Sign In');
 
 	const handleSubmit = (values: any, resetForm: () => void) => {
@@ -31,7 +32,7 @@ export const SignIn: React.SFC<RouteComponentProps> = ({ history }) => {
 	return (
 		<div className="App">
 			<Formik
-				render={Form}
+				render={SignInForm}
 				initialValues={initialValues}
 				validationSchema={validationSchema}
 				onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}
@@ -40,7 +41,7 @@ export const SignIn: React.SFC<RouteComponentProps> = ({ history }) => {
 	);
 };
 
-const Form = ({
+const SignInForm = ({
 	handleSubmit,
 	values,
 	dirty
@@ -64,8 +65,9 @@ const Form = ({
 			placeholder="Password"
 		/>
 		<Button text="Submit" disabled={!dirty} onClick={handleSubmit} />
-		<div>{values.email}</div>
-		<div>{values.password}</div>
+		<Link to={routes.SIGN_UP}>Create Account</Link>
+		{/* <div>{values.email}</div>
+		<div>{values.password}</div> */}
 	</Limiter>
 );
 

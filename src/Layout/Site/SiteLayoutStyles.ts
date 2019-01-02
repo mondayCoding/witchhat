@@ -1,5 +1,6 @@
-import styled from '../Library/theme';
+import styled from '../../Library/theme';
 import { NavLink } from 'react-router-dom';
+import { transparentize } from 'polished';
 
 export const ThemedLayout = styled.div`
 	display: flex;
@@ -60,4 +61,18 @@ export const ThemedLink = styled(NavLink)`
 		flex: 0 0 1rem;
 		margin-right: 0.5rem;
 	}
+`;
+
+export const NaviSubHeading = styled.span`
+	padding: .5rem 0.5rem 0.35rem;
+	display: block;
+	font-size: 0.85rem;
+	color: ${({ theme }) => transparentize(0.65, theme.text_primary)};
+	background-color: ${({ theme }) =>
+		transparentize(0.65, theme.main_background_color)};
+	border-top: 0.1rem solid ${({ theme }) => theme.gray_black};
+	border-bottom: 0.1rem solid ${({ theme }) => theme.gray_black};
+	font-style: italic;
+	/* box-shadow: ${({ theme }) => theme.global_shadow_inset}; */
+	text-align: left;
 `;

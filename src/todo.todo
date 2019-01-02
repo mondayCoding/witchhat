@@ -3,7 +3,7 @@
 TASKS:
 ::::::::::::::::::::::::::::::::::::::::::::::
 
-☐ Hamburger menu
-☐ SetField Formik inputs
+☐ Add Hamburger menu
 ☐ Declarative routing
+☐ Migrate formik inputs to SetField hook
 ☐ Migrate effect list observer to custom hook
