@@ -15,7 +15,7 @@ import { auth } from '../../Firebase/index';
 import { Heading } from '../../Library/Text/Heading';
 import * as routes from '../../Constants/Routes';
 
-export const SiteLayout: React.SFC<{ user: firebase.User }> = ({ user }) => (
+export const SiteLayout: React.SFC = () => (
 	<ThemedLayout>
 		<nav className="nav">
 			<Navigation />
@@ -74,7 +74,7 @@ const Navigation = () => (
 
 		<NaviSubHeading>Testing</NaviSubHeading>
 
-		<ThemedLink to={routes.SIGN_IN} onClick={auth.signOut}>
+		<ThemedLink to={routes.SIGN_OUT} onClick={auth.signOut}>
 			{navicons.poweroff} Sign Out
 		</ThemedLink>
 

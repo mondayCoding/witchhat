@@ -25,9 +25,7 @@ export const Button: React.SFC<IProps & Partial<StyleProps>> = ({
 	return (
 		<ThemedButton type={'button'} {...rest}>
 			{iconBeforeText && <span>{iconBeforeText}</span>}
-
 			{children || (text && <span>{text}</span>)}
-
 			{iconAfterText && <span>{iconAfterText}</span>}
 		</ThemedButton>
 	);

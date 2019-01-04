@@ -66,6 +66,7 @@ const SignInForm = ({
 		/>
 		<Button text="Submit" disabled={!dirty} onClick={handleSubmit} />
 		<Link to={routes.SIGN_UP}>Create Account</Link>
+		<Link to={routes.PASSWORD_FORGET}>I have forgotten my password</Link>
 		{/* <div>{values.email}</div>
 		<div>{values.password}</div> */}
 	</Limiter>

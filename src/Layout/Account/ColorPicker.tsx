@@ -19,6 +19,7 @@ export const ColorPicker: React.SFC<FieldProps & TextProp> = (props) => {
 					<b>{text}</b>
 				</div>
 			</ColorSampleWrapper>
+
 			{displayPicker && (
 				<ChromePicker
 					color={field.value}
