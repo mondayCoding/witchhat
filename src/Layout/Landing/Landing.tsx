@@ -14,16 +14,8 @@ const LandingBase: React.SFC<any> = (props) => {
 	);
 };
 
-const mapStateToProps = (state: any) => {
-	return state;
+const mapStateToProps = ({ economy }: any) => {
+	return economy;
 };
-
-interface StateProps {
-	state: { economy: any };
-}
-
-interface ReturnProps {
-	state: { economy: any };
-}
 
 export const Landing = connect<any>(mapStateToProps)(LandingBase);

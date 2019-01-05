@@ -25,7 +25,7 @@ export const ThemedLayout = styled.div`
 	}
 
 	> main.main {
-		flex: 0 0 80%;
+		flex: 1 1 auto;
 		padding: 1rem;
 		background-color: ${({ theme }) => theme.main_background_color};
 		box-shadow: ${(props) => props.theme.global_shadow_inset};

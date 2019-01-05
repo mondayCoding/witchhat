@@ -7,11 +7,11 @@ import { resetPassword } from '../../Firebase/auth';
 import { Button } from '../../Library/Button/Button';
 import * as Yup from 'yup';
 import { Heading } from '../../Library/Text/Heading';
-import { useTranslation } from 'react-i18next/hooks';
+// import { useTranslation } from 'react-i18next/hooks';
 
 export const ForgotPassword: React.SFC = () => {
 	useDocumentTitleSetter('Forgot Password');
-	const [t, i18n] = useTranslation();
+	// const [t, i18n] = useTranslation();
 
 	const handleSubmit = ({ email }: { email: string }) => resetPassword(email);
 
@@ -20,8 +20,9 @@ export const ForgotPassword: React.SFC = () => {
 			<Heading
 				type={'h3'}
 				hasUnderline={true}
-				text={t('Forgot password')}
-				ingress={t('forgot password ingress')}
+				text={'Forgot Password'}
+				// text={t('Forgot password')}
+				// ingress={t('forgot password ingress')}
 			/>
 
 			<Formik

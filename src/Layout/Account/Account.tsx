@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect, useContext } from 'react';
 import { Button } from '../../Library/Button/Button';
 import Notify from '../../UtilsUI/Notification';
-import { themeContext, ThemeContextVal } from '../../Library/theme';
+import { ThemeContext, ThemeContextVal } from '../../Library/theme';
 import { defaultTheme, lightTheme } from '../../Library/theme';
 import { Heading } from '../../Library/Text/Heading';
 import { Formik, FormikProps, Field } from 'formik';
@@ -16,7 +16,7 @@ import { useDocumentTitleSetter } from '../../Hooks/useDocumentTitleSetter';
 
 export const Account: React.SFC = () => {
 	const { setCurrentTheme, currentTheme } = useContext(
-		themeContext
+		ThemeContext
 	) as ThemeContextVal;
 	useDocumentTitleSetter('Account');
 

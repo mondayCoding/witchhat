@@ -92,7 +92,7 @@ export const lightTheme: ThemeInterface = {
 	global_shadow_inset: `0 0 0.4rem ${transparentize(0.6, 'black')} inset`
 };
 
-export const themeContext = React.createContext({});
+export const ThemeContext = React.createContext({});
 
 export const ThemeManager: React.SFC = ({ children }) => {
 	const [currentTheme, setCurrentTheme] = useState(defaultTheme);
@@ -109,11 +109,11 @@ export const ThemeManager: React.SFC = ({ children }) => {
 	}, []);
 
 	return (
-		<themeContext.Provider value={{ currentTheme, setCurrentTheme }}>
+		<ThemeContext.Provider value={{ currentTheme, setCurrentTheme }}>
 			<ThemeProvider theme={currentTheme}>
 				<>{children}</>
 			</ThemeProvider>
-		</themeContext.Provider>
+		</ThemeContext.Provider>
 	);
 };
 

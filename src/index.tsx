@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { GlobalStyle } from './Layout/GlobalStyles';
@@ -8,12 +8,14 @@ import { Provider } from 'react-redux';
 import { App } from './Layout/App';
 import { createStore } from 'redux';
 import { RootReducer } from './Store/Reducers/RootReducer';
-import './Translation/Translation.ts';
+// import './Translation/Translation.ts';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const reduxStore = createStore(RootReducer);
 
 export const Application = () => {
+	const [nom, nam] = useState('243234');
+
 	return (
 		<ThemeManager>
 			<GlobalStyle />
