@@ -2,7 +2,6 @@ import React, { Component, useState, useEffect } from 'react';
 import { Formik, FormikProps, Field, FieldProps } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '../../Library/Button/Button';
-import { FormikTextInput } from '../../Library/Formik/FormikField';
 import { Limiter } from '../../Library/Utility/Wrappers';
 import * as routes from '../../Constants/Routes';
 import { RouteComponentProps } from 'react-router';
@@ -11,6 +10,7 @@ import { Heading } from '../../Library/Text/Heading';
 import Notify from '../../UtilsUI/Notification';
 import { useDocumentTitleSetter } from '../../Hooks/useDocumentTitleSetter';
 import { Link } from 'react-router-dom';
+import { TextField } from '../../Library/TextInput/TextInputPlain';
 
 export const SignIn: React.SFC<Partial<RouteComponentProps>> = ({ history }) => {
 	useDocumentTitleSetter('Sign In');
@@ -52,17 +52,12 @@ const SignInForm = ({
 			hasUnderline={true}
 			ingress="Beware he who enters, there is no god inside"
 		/>
-		<Field
-			name="email"
-			type="email"
-			component={FormikTextInput}
-			placeholder="Email"
-		/>
-		<Field
+		<TextField name="email" type="email" placeholder="Email" hideLabel={true} />
+		<TextField
 			name="password"
 			type="password"
-			component={FormikTextInput}
 			placeholder="Password"
+			hideLabel={true}
 		/>
 		<Button text="Submit" disabled={!dirty} onClick={handleSubmit} />
 		<Link to={routes.SIGN_UP}>Create Account</Link>

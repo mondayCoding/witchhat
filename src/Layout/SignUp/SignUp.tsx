@@ -3,13 +3,13 @@ import { Formik, FormikProps, Field, FieldProps } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '../../Library/Button/Button';
 import { withRouter, RouteComponentProps, Link } from 'react-router-dom';
-import { FormikTextInput } from '../../Library/Formik/FormikField';
 import { Limiter } from '../../Library/Utility/Wrappers';
 import { auth } from '../../Firebase/index';
 import * as routes from '../../Constants/Routes';
 import Notify from '../../UtilsUI/Notification';
 import { useDocumentTitleSetter } from '../../Hooks/useDocumentTitleSetter';
 import { Heading } from '../../Library/Text/Heading';
+import { TextField } from '../../Library/TextInput/TextInputPlain';
 
 export const SignUp: React.SFC<Partial<RouteComponentProps>> = ({ history }) => {
 	useDocumentTitleSetter('Sign Up');
@@ -55,23 +55,18 @@ const SignUpForm = ({
 			ingress="Beware he who enters, there is no god inside"
 		/>
 
-		<Field
-			name="email"
-			type="email"
-			component={FormikTextInput}
-			placeholder="Email"
-		/>
-		<Field
+		<TextField name="email" type="email" placeholder="Email" hideLabel={true} />
+		<TextField
 			name="password"
 			type="password"
-			component={FormikTextInput}
 			placeholder="Choose Password"
+			hideLabel={true}
 		/>
-		<Field
+		<TextField
 			name="passwordConfirm"
 			type="password"
-			component={FormikTextInput}
 			placeholder="Confirm Password"
+			hideLabel={true}
 		/>
 		<Button text="Submit" disabled={!dirty} onClick={handleSubmit} />
 		<Link to={routes.SIGN_IN}>Already have Account</Link>

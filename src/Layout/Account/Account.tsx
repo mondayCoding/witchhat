@@ -10,14 +10,11 @@ import Icons from '../../UtilsUI/Icons';
 import { MenuWrapper } from './AccountStyles';
 import { LineDivider } from '../../Library/Utility/Divider';
 import { ColorPicker } from './ColorPicker';
-import { Select } from '../../Library/Select/Select';
 import { database } from '../../Firebase';
 import { useDocumentTitleSetter } from '../../Hooks/useDocumentTitleSetter';
 
 export const Account: React.SFC = () => {
-	const { setCurrentTheme, currentTheme } = useContext(
-		ThemeContext
-	) as ThemeContextVal;
+	const { setCurrentTheme, currentTheme } = useContext(ThemeContext) as ThemeContextVal;
 	useDocumentTitleSetter('Account');
 
 	const setCustomUserTheme = (newTheme: typeof defaultTheme) => {
@@ -76,11 +73,7 @@ export const Account: React.SFC = () => {
 							type="h5"
 							ingress="Choose main themed color, used most prominently on input elements and in navigation"
 						/>
-						<Field
-							name="primary"
-							text={'Primary color'}
-							component={ColorPicker}
-						/>
+						<Field name="primary" text={'Primary color'} component={ColorPicker} />
 						<LineDivider />
 
 						<Heading
@@ -132,89 +125,7 @@ export const Account: React.SFC = () => {
 	);
 };
 
-const initialValues = { ...defaultTheme };
 const validationSchema = Yup.object().shape({
 	primary: Yup.string(),
 	secondary: Yup.string()
 });
-
-const Form = ({
-	handleReset,
-	handleSubmit,
-	dirty
-}: FormikProps<typeof initialValues>) => {
-	return (
-		<MenuWrapper>
-			<div className="buttons">
-				<Button
-					iconBeforeText={Icons.reset}
-					text="Reset"
-					onClick={handleReset}
-					disabled={!dirty}
-				/>
-
-				<Button
-					iconBeforeText={Icons.arrowRight}
-					text="Apply"
-					onClick={handleSubmit}
-					disabled={!dirty}
-				/>
-				<Select options={ThemeOptions} />
-			</div>
-			<LineDivider />
-
-			<Heading
-				text="Primary UI color"
-				type="h5"
-				ingress="Choose main themed color, used most prominently on input elements and in navigation"
-			/>
-			<Field name="primary" text={'Primary color'} component={ColorPicker} />
-			<LineDivider />
-
-			<Heading
-				text="Text Color"
-				type="h5"
-				ingress="Default text color used in most parts of the application"
-			/>
-			<Field name="text_primary" text={'Text color'} component={ColorPicker} />
-			<LineDivider />
-
-			{/* <Heading
-				text="Secondary Theme color"
-				type="h5"
-				ingress="Secondary theme color used to highlight some elements"
-			/>
-			<Field name="secondary" text={'Secondary color'} component={ColorPicker} />
-			<LineDivider /> */}
-
-			<Heading
-				text="Navigation Background"
-				type="h5"
-				ingress="Choose background color for Navigation Panel"
-			/>
-			<Field
-				name="nav_background_color"
-				text={'Navigation BG'}
-				component={ColorPicker}
-			/>
-			<LineDivider />
-
-			<Heading
-				text="Page Background"
-				type="h5"
-				ingress="Choose background color for Page Content"
-			/>
-			<Field
-				name="main_background_color"
-				text={'Page BG'}
-				component={ColorPicker}
-			/>
-		</MenuWrapper>
-	);
-};
-
-const ThemeOptions = [
-	{ label: 'Night (Default)', value: '1' },
-	{ label: 'Day', value: '2' },
-	{ label: 'Custom', value: '3' }
-];

@@ -4,15 +4,12 @@ import { Occurance, OccurranceConstant } from './Types/EconomyOccurrance';
 import { EconomyEvent } from './Types/EconomyEvent';
 import { Button } from '../../Library/Button/Button';
 import { Formik, FormikProps, Field } from 'formik';
-import {
-	FormikSelect,
-	FormikTextInput,
-	FormikTextInputPlain
-} from '../../Library/Formik/FormikField';
 import * as Yup from 'yup';
 import Icons from '../../UtilsUI/Icons';
-import { Field as Wrapper } from '../../Library/Field/Field';
+import { FieldContainer } from '../../Library/FieldContainer/FieldContainer';
 import { Limiter } from '../../Library/Utility/Wrappers';
+import { TextField } from '../../Library/TextInput/TextInputPlain';
+import { SelectField } from '../../Library/Select/Select';
 
 const Form = ({
 	handleSubmit,
@@ -21,31 +18,17 @@ const Form = ({
 	handleCancel
 }: FormikProps<EconomyEvent> & { handleCancel(): any }) => (
 	<div>
-		<Wrapper label="Name">
-			<Field name="name" placeholder="Name" component={FormikTextInputPlain} />
-		</Wrapper>
+		<TextField label="Name" name="name" placeholder="Name" />
+		<TextField label="Value" name="value" placeholder="Value" />
 
-		<Wrapper label="Value">
-			<Field name="value" placeholder="Value" component={FormikTextInputPlain} />
-		</Wrapper>
+		<SelectField name="type" label="Type" options={TypeOptions} placeholder="Type" />
 
-		<Wrapper label="Type">
-			<Field
-				name="type"
-				options={TypeOptions}
-				component={FormikSelect}
-				placeholder="Type"
-			/>
-		</Wrapper>
-
-		<Wrapper label="Occurrance">
-			<Field
-				name="repeat"
-				placeholder="Repeat"
-				options={OccuranceOptions}
-				component={FormikSelect}
-			/>
-		</Wrapper>
+		<SelectField
+			label="Occurrance"
+			name="repeat"
+			placeholder="Repeat"
+			options={OccuranceOptions}
+		/>
 
 		<Button text="Submit" disabled={!dirty} onClick={handleSubmit} />
 
@@ -57,11 +40,7 @@ const Form = ({
 		/>
 
 		{handleCancel && (
-			<Button
-				iconBeforeText={Icons.arrowLeft}
-				text="Cancel"
-				onClick={handleCancel}
-			/>
+			<Button iconBeforeText={Icons.arrowLeft} text="Cancel" onClick={handleCancel} />
 		)}
 	</div>
 );

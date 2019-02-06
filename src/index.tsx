@@ -14,8 +14,6 @@ import 'react-toastify/dist/ReactToastify.css';
 export const reduxStore = createStore(RootReducer);
 
 export const Application = () => {
-	const [nom, nam] = useState('243234');
-
 	return (
 		<ThemeManager>
 			<GlobalStyle />

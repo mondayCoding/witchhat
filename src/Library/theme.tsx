@@ -20,7 +20,7 @@ export interface ThemeContextVal {
 }
 export default styled;
 
-interface ThemeInterface {
+export interface ThemeInterface {
 	primary: string;
 	secondary: string;
 	text_primary: string;
@@ -40,6 +40,7 @@ interface ThemeInterface {
 	global_border_radius: string;
 	global_shadow: string;
 	global_shadow_inset: string;
+	global_font_size: string;
 }
 
 export const defaultTheme: ThemeInterface = {
@@ -64,7 +65,8 @@ export const defaultTheme: ThemeInterface = {
 	font_headings: "'Rubik', sans-serif",
 	global_border_radius: '.5rem',
 	global_shadow: `0 0 0.4rem ${transparentize(0.6, 'black')}`,
-	global_shadow_inset: `0 0 0.4rem ${transparentize(0.6, 'black')} inset`
+	global_shadow_inset: `0 0 0.4rem ${transparentize(0.6, 'black')} inset`,
+	global_font_size: '1rem'
 };
 
 export const lightTheme: ThemeInterface = {
@@ -89,7 +91,8 @@ export const lightTheme: ThemeInterface = {
 	font_headings: "'Rubik', sans-serif",
 	global_border_radius: '.5rem',
 	global_shadow: `0 0 0.4rem ${transparentize(0.6, 'black')}`,
-	global_shadow_inset: `0 0 0.4rem ${transparentize(0.6, 'black')} inset`
+	global_shadow_inset: `0 0 0.4rem ${transparentize(0.6, 'black')} inset`,
+	global_font_size: '1rem'
 };
 
 export const ThemeContext = React.createContext({});
