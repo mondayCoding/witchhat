@@ -4,12 +4,12 @@ import 'firebase/firestore';
 
 // Initialize Firebase
 const config = {
-	apiKey: 'AIzaSyCxyZ0lK6cdS6b1vAjHk0SXQZ8Y4CcW43M',
-	authDomain: 'witchbase.firebaseapp.com',
-	databaseURL: 'https://witchbase.firebaseio.com',
+	apiKey: '123123123',
+	authDomain: 'witchbase.firebaseapp2.com',
+	databaseURL: 'https://witchbase.firebaseio2.com',
 	projectId: 'witchbase',
-	storageBucket: 'witchbase.appspot.com',
-	messagingSenderId: '289822157105'
+	storageBucket: 'witchbase.appspot2.com',
+	messagingSenderId: '123123123'
 };
 
 if (!firebase.apps.length) {
